@@ -5,8 +5,17 @@ import java.util.Arrays;
 public class CSVView {
     // Prints the records from the file line by line
     public void printRecords(String[][] records){
+        System.out.println("All records from the file: ");
         for(String[] record: records){
             System.out.println(Arrays.deepToString(record));
+        }
+    }
+
+    // Prints clean records
+    public void printClean(String[][] cleanRecords){
+        System.out.println("Clean records from the file: ");
+        for(String[] cleanRecord: cleanRecords){
+            System.out.println(Arrays.deepToString(cleanRecord));
         }
     }
 
