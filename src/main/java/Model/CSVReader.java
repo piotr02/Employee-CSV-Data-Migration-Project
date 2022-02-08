@@ -6,6 +6,12 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class CSVReader {
+<<<<<<<<< Temporary merge branch 1
+
+
+  
+  
+=========
     public static void main(String[] args) {
         /*
         * CSV Reader Demo*/
@@ -33,4 +39,5 @@ public class CSVReader {
       }
       return stringArray;
   }
+>>>>>>>>> Temporary merge branch 2
 }
