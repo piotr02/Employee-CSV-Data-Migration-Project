@@ -1,6 +1,15 @@
 package View;
 
+import java.util.Arrays;
+
 public class CSVView {
+    // Prints the records from the file line by line
+    public void printRecords(String[][] records){
+        for(String[] record: records){
+            System.out.println(Arrays.deepToString(record));
+        }
+    }
+
     // Returns the number of unique records in the file
     public String getUnique(int unique){
         return "Number of unique records in the file: " + unique;
