@@ -1,7 +1,9 @@
 import model.EmployeeCsvDataValidator;
+import model.EmployeeRecord;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
 
 import static model.CSVReader.readCsvFile;
 
@@ -32,9 +34,17 @@ public class CSVDriver {
             System.out.println(Arrays.toString(array));
         });
 
+        ArrayList<EmployeeRecord> employeeRecords = new ArrayList<>(
+                validData.stream().map(recordString ->{
+                    EmployeeRecord record = new EmployeeRecord();
+                    record.employer_ID = Integer.parseInt(recordString[0]);
+                    record.firstName = recordString[2];
+                    record.lastName = recordString[3];
+
+                    return record;
+                }).toList());
+
     }
-
-
 //    public static boolean isEmployeeRowCorrupt(String[] row, HashSet<String> existingIds){
 //
 //        if(row.length != 10) return true;

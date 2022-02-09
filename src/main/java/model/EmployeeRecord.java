@@ -5,12 +5,21 @@ import java.util.Date;
 
 public class EmployeeRecord {
 
-    int employer_ID;
-    String FirstName , LastName;
-    String Email;
-    Date Date_of_Birth;
-    LocalDateTime ldt;
+    public int employer_ID;
+    public String firstName , lastName;
+    public String email;
+    public Date date_of_Birth;
+    public LocalDateTime ldt;
 
-
-
+    @Override
+    public String toString() {
+        return "EmployeeRecord{" +
+                "employer_ID=" + employer_ID +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", date_of_Birth=" + date_of_Birth +
+                ", ldt=" + ldt +
+                '}';
+    }
 }
