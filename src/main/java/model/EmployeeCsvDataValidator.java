@@ -1,7 +1,5 @@
-package Model;
+package model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 
 public class EmployeeCsvDataValidator extends AbstractDataValidator{
@@ -16,8 +14,8 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator{
     }
 
     @Override
-    public void spilitData() {
-        super.spilitData();
+    public void splitData() {
+        super.splitData();
         this.existingIds = new HashSet<>();
         String[][] data = this.getData();
         for(int i = 0; i < getData().length; i++){

@@ -1,9 +1,9 @@
-import Model.EmployeeCsvDataValidator;
+import model.EmployeeCsvDataValidator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static Model.CSVReader.readCsvFile;
+import static model.CSVReader.readCsvFile;
 
 public class CSVDriver {
 
@@ -24,7 +24,7 @@ public class CSVDriver {
 
         EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
         dataValidator.setData(readCsvFile("EmployeeRecords.csv"));
-        dataValidator.spilitData();
+        dataValidator.splitData();
         ArrayList<String[]> corruptedData =  dataValidator.getCorrupted();
         ArrayList<String[]> validData =  dataValidator.getValid();
 

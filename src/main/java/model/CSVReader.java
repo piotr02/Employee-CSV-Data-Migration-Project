@@ -1,20 +1,12 @@
-package Model;
+package model;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class CSVReader {
 
-    public static void main(String[] args) {
-        /*
-        * CSV Reader Demo*/
-        System.out.println(Arrays.deepToString(
-                readCsvFile("EmployeeRecords.csv")
-        ));
-    }
-  public static String[][] readCsvFile(String filename) {
+    public static String[][] readCsvFile(String filename) {
     String[][] stringArray  = new String[0][];
       try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
           StringBuilder sb = new StringBuilder();
