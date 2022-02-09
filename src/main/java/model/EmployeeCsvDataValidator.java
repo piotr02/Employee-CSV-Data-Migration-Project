@@ -1,8 +1,7 @@
-package Model;
+package model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
+
 
 public class EmployeeCsvDataValidator extends AbstractDataValidator{
     private HashSet<String> existingIds;
@@ -15,9 +14,11 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator{
         super();
     }
 
+    /**
+     * This seperates the Corrupted Data from the valid data*/
     @Override
-    public void spilitData() {
-        super.spilitData();
+    public void splitData() {
+        super.splitData();
         this.existingIds = new HashSet<>();
         String[][] data = this.getData();
         for(int i = 0; i < getData().length; i++){
@@ -31,6 +32,8 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator{
         }
     }
 
+    /**
+     * This is the method that determines if a row (The data for a single employee) in the String[][] 2D array is corrupted or valid*/
     private boolean isEmployeeRowCorrupt(String[] row, HashSet<String> existingIds){
 
         if(row.length != 10) return true;

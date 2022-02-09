@@ -1,12 +1,12 @@
 
-import Model.CSVReader;
-import Model.EmployeeCsvDataValidator;
+import model.CSVReader;
+import model.EmployeeCsvDataValidator;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static Model.CSVReader.*;
+import static model.CSVReader.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -35,7 +35,7 @@ public class CSVShould {
     public void corruptRecordGetsAddedToDifferentCollection() {
         EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
         dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
-        dataValidator.spilitData();
+        dataValidator.splitData();
         ArrayList<String[]> corruptedData =  dataValidator.getCorrupted();
         assertNotNull(dataValidator.getCorrupted());
     }
