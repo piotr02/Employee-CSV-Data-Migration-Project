@@ -1,6 +1,9 @@
 import model.EmployeeCsvDataValidator;
 import model.EmployeeRecord;
+import model.RecordCounter;
+import view.CSVView;
 
+import java.sql.Array;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -77,6 +80,20 @@ public class CSVDriver {
                     return record;
                 }).toList());
 
+        dataValidator.setUniqueAndDuplicate();
+        ArrayList<String[]> uniqueData = dataValidator.getUniqueData();
+        ArrayList<String[]> duplicatedData = dataValidator.getDuplicatedData();
+        duplicatedData.forEach(array->{
+            System.out.println(Arrays.toString(array));
+        });
+        dataValidator.setMissingValuesData();
+        ArrayList<String[]> missingValuesData = dataValidator.getMissingValuesData();
+        missingValuesData.forEach(array->{
+            System.out.println(Arrays.toString(array));
+        });
+        CSVView view = new CSVView();
+        RecordCounter counter = new RecordCounter();
+        System.out.println(view.getDuplicates(counter.countDuplicated(duplicatedData)));
     }
 //    public static boolean isEmployeeRowCorrupt(String[] row, HashSet<String> existingIds){
 //
