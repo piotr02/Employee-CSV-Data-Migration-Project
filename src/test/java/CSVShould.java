@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import java.util.Arrays;
 
 import static Model.CSVReader.*;
-import static Model.DetectCorrupt.corruptReader;
+import static Model.DetectCorrupt.*;
 import static View.CSVView.*;
 import static org.junit.jupiter.api.Assertions.*;
 
