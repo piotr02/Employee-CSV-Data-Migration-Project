@@ -6,62 +6,59 @@ import java.util.HashSet;
 
 public class DetectCorrupt {
     public static void main(String[] args) {
-        String[][] csvFileOutput =  CSVReader.readCsvFile("EmplyeeRecords.csv");
-        HashSet<String> existingId = new HashSet<>();
-        ArrayList<String[]> corruptedData = new ArrayList<>();
-        ArrayList<String[]> validData = new ArrayList<>();
-        for(int i = 0; i < csvFileOutput.length; i++){
-            String[] row = csvFileOutput[i];
-            if(isEmployeeRowCorrupt(row, existingId)){
-                corruptedData.add(row);
-            }else {
-                existingId.add(row[0]);
-                validData.add(row);
-            }
-        }
+
+        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
+        dataValidator.spilitData();
+        ArrayList<String[]> corruptedData =  dataValidator.getCorrupted();
+        ArrayList<String[]> validData =  dataValidator.getValid();
+
+        corruptedData.forEach(array ->{
+            System.out.println(Arrays.toString(array));
+        });
 
     }
 
 
-    public static boolean isEmployeeRowCorrupt(String[] row, HashSet<String> existingIds){
-
-        if(row.length != 10) return true;
-
-
-        String id = row[0];
-        String middleInitial = row[3];
-        String gender = row[5];
-        String salary = row[9];
-
-        // If ID isn't numeric, add to Corrupt Array file.
-        if(id.matches("[a-zA-Z]+")){
-             return true;
-        }
-        if(existingIds.contains(id)){
-            return true;
-        }
-
-        //   If Middle initial not 1 character long
-        if(!(middleInitial.length() == 1)){
-             return true;
-        }
-        //   If Gender not in M, F
-        if(!gender.matches(("^M$|^F$"))){
-            return true;
-        }
-        //   If Salary includes anything but numbers
-        if(salary.matches("[a-zA-Z]+")){
-            return true;
-        }
-
-        // if name prefix not in enum?
-
-        // If date of birth/date of join don't adhere to date format
-
-        return false;
-    }
-
-
+//    public static boolean isEmployeeRowCorrupt(String[] row, HashSet<String> existingIds){
+//
+//        if(row.length != 10) return true;
+//
+//
+//        String id = row[0];
+//        String middleInitial = row[3];
+//        String gender = row[5];
+//        String salary = row[9];
+//
+//        // If ID isn't numeric, add to Corrupt Array file.
+//        if(id.matches("[a-zA-Z]+")){
+//             return true;
+//        }
+//        if(existingIds.contains(id)){
+//            return true;
+//        }
+//
+//        //   If Middle initial not 1 character long
+//        if(!(middleInitial.length() == 1)){
+//             return true;
+//        }
+//        //   If Gender not in M, F
+//        if(!gender.matches(("^M$|^F$"))){
+//            return true;
+//        }
+//        //   If Salary includes anything but numbers
+//        if(salary.matches("[a-zA-Z]+")){
+//            return true;
+//        }
+//
+//        // if name prefix not in enum?
+//
+//        // If date of birth/date of join don't adhere to date format
+//
+//        return false;
+//    }
+//
+//
 
 
 //    public static ArrayList corruptReader(String filename) {
