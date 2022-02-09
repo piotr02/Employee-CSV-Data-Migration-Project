@@ -1,14 +1,29 @@
-package Model;
+import Model.EmployeeCsvDataValidator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 
-public class DetectCorrupt {
+import static Model.CSVReader.readCsvFile;
+
+public class CSVDriver {
+
+
     public static void main(String[] args) {
 
+        System.out.println("");
+        System.out.println("============= Read CSV ======================");
+        System.out.println("");
+
+
+        System.out.println(Arrays.deepToString(
+                readCsvFile("EmployeeRecords.csv")));
+
+        System.out.println("");
+        System.out.println("============ Seperate Corrupt ===============");
+        System.out.println("");
+
         EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
-        dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
+        dataValidator.setData(readCsvFile("EmployeeRecords.csv"));
         dataValidator.spilitData();
         ArrayList<String[]> corruptedData =  dataValidator.getCorrupted();
         ArrayList<String[]> validData =  dataValidator.getValid();
