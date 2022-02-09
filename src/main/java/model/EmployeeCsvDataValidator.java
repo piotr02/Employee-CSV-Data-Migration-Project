@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 
@@ -72,4 +73,39 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator{
         return false;
     }
 
+    /**
+     * Determines if a record is duplicated and separates it from unique records
+     */
+    public void setUniqueAndDuplicate(){
+        this.uniqueData = new ArrayList<>();
+        this.duplicatedData = new ArrayList<>();
+        String[][] data = this.getData();
+        HashSet<String> uniqueData = new HashSet<>();
+        for(int i = 0; i < data.length; i++){
+            String[] row = data[i];
+            if(uniqueData.contains(row[0])){
+                this.duplicatedData.add(row);
+            }
+            else {
+                this.uniqueData.add(row);
+                uniqueData.add(row[0]);
+            }
+        }
+    }
+
+    /**
+     * Checks records for missing values and adds them to an array list
+     */
+    public void setMissingValuesData(){
+        this.missingValuesData = new ArrayList<>();
+        String[][] data = this.getData();
+        for(int i = 0; i < data.length; i++){
+            String[] row = data[i];
+            for(int j = 0; j < row.length; j++){
+                if (row[j] == ""){
+                    this.missingValuesData.add(row);
+                }
+            }
+        }
+    }
 }

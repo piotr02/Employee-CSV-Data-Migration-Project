@@ -5,6 +5,9 @@ import java.util.ArrayList;
 public abstract class AbstractDataValidator {
     protected ArrayList<String[]> validData;
     protected ArrayList<String[]> corruptedData;
+    protected ArrayList<String[]> uniqueData;
+    protected ArrayList<String[]> duplicatedData;
+    protected ArrayList<String[]> missingValuesData;
     private String[][] data;
 
 
@@ -41,5 +44,17 @@ public abstract class AbstractDataValidator {
      * After splitting the Array this function can be used to get the corrupted data*/
     public ArrayList<String[]> getCorrupted() {
         return corruptedData;
+    }
+
+    public ArrayList<String[]> getUniqueData() {
+        return uniqueData;
+    }
+
+    public ArrayList<String[]> getDuplicatedData() {
+        return duplicatedData;
+    }
+
+    public ArrayList<String[]> getMissingValuesData() {
+        return missingValuesData;
     }
 }
