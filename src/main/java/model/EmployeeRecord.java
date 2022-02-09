@@ -1,6 +1,5 @@
-package Model;
+package model;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
 import java.time.LocalDateTime;
 import java.util.Date;
 

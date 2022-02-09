@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public abstract class AbstractDataValidator {
         return this.data;
     }
 
-    public  void spilitData(){
+    public  void splitData(){
         this.corruptedData = new ArrayList<>();
         this.validData = new ArrayList<>();
     }
