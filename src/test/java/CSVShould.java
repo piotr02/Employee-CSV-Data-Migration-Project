@@ -1,10 +1,12 @@
 
 import Model.CSVReader;
+import Model.DetectCorrupt;
 import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
 
 import static Model.CSVReader.*;
+import static Model.DetectCorrupt.corruptReader;
 import static View.CSVView.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +18,7 @@ public class CSVShould {
     public void returnFile(){
 
         System.out.println(Arrays.deepToString(
-                readCsvFile("authors.csv")));
+                readCsvFile("EmployeeRecords.csv")));
     }
 
 
@@ -24,7 +26,7 @@ public class CSVShould {
     @DisplayName("When the program is run, the collection should be populated with an object.")
     public void recordGetsAddedToCollection(){
         CSVReader testReader = new CSVReader();
-        readCsvFile("authors.csv");
+        readCsvFile("EmployeeRecords.csv");
         String stringTest = CSVReader.readCsvFile("authors.csv").toString();
         assertNotNull(stringTest);
     }
@@ -32,10 +34,10 @@ public class CSVShould {
     @Test
     @DisplayName("When the program is run, corrupt data should be read and populate a seperate collection.")
     public void corruptRecordGetsAddedToDifferentCollection(){
-        CSVReader testReader = new CSVReader();
-        readCsvFile("authors.csv");
-        String stringTest = CSVReader.readCsvFile("authors.csv").toString();
-        assertNotNull(stringTest);
+        DetectCorrupt testReader = new DetectCorrupt();
+        corruptReader("EmployeeRecords.csv");
+
+        assertNotNull(corruptReader("EmployeeRecords.csv"));
     }
 
 
