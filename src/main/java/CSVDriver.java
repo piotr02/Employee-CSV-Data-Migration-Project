@@ -1,8 +1,15 @@
 import model.EmployeeCsvDataValidator;
 import model.EmployeeRecord;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 
 import static model.CSVReader.readCsvFile;
@@ -35,12 +42,38 @@ public class CSVDriver {
         });
 
         ArrayList<EmployeeRecord> employeeRecords = new ArrayList<>(
+                //
+                // Emp ID,Name Prefix,First Name,Middle Initial,Last Name,Gender,E Mail,Date of Birth,Date of Joining,Salary
+
                 validData.stream().map(recordString ->{
                     EmployeeRecord record = new EmployeeRecord();
                     record.employer_ID = Integer.parseInt(recordString[0]);
+                    record.prefix = recordString[1];
                     record.firstName = recordString[2];
-                    record.lastName = recordString[3];
+                    record.middleInitial = recordString[3].charAt(0);
+                    record.lastName = recordString[4];
+                    record.gender = recordString[5].charAt(0);
+                    record.email = recordString[6];
 
+
+                    SimpleDateFormat fromRecordString = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat forSql = new SimpleDateFormat("yyyy-MM-dd");
+
+                    try {
+
+                        record.dateOfBirth = Date.valueOf(
+                                forSql.format(fromRecordString.parse(recordString[7]))
+                        );
+                        record.dateOfJoining =  Date.valueOf(
+                                forSql.format(fromRecordString.parse(recordString[8]))
+                        );
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    record.salary = Integer.parseInt(recordString[9]);
+
+                    System.out.println(record + "\n");
                     return record;
                 }).toList());
 
