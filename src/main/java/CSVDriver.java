@@ -1,25 +1,50 @@
-package Model;
+import model.EmployeeCsvDataValidator;
+import model.EmployeeRecord;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-
-public class DetectCorrupt {
-//    public static void main(String[] args) {
-//
-//        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
-//        dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
-//        dataValidator.spilitData();
-//        ArrayList<String[]> corruptedData =  dataValidator.getCorrupted();
-//        ArrayList<String[]> validData =  dataValidator.getValid();
-//
-//        corruptedData.forEach(array ->{
-//            System.out.println(Arrays.toString(array));
-//        });
-//
-//    }
 
 
+import static model.CSVReader.readCsvFile;
+
+public class CSVDriver {
+
+
+    public static void main(String[] args) {
+
+        System.out.println("");
+        System.out.println("============= Read CSV ======================");
+        System.out.println("");
+
+
+        System.out.println(Arrays.deepToString(
+                readCsvFile("EmployeeRecords.csv")));
+
+        System.out.println("");
+        System.out.println("============ Seperate Corrupt ===============");
+        System.out.println("");
+
+        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        dataValidator.setData(readCsvFile("EmployeeRecords.csv"));
+        dataValidator.splitData();
+        ArrayList<String[]> corruptedData =  dataValidator.getCorrupted();
+        ArrayList<String[]> validData =  dataValidator.getValid();
+
+        corruptedData.forEach(array ->{
+            System.out.println(Arrays.toString(array));
+        });
+
+        ArrayList<EmployeeRecord> employeeRecords = new ArrayList<>(
+                validData.stream().map(recordString ->{
+                    EmployeeRecord record = new EmployeeRecord();
+                    record.employer_ID = Integer.parseInt(recordString[0]);
+                    record.firstName = recordString[2];
+                    record.lastName = recordString[3];
+
+                    return record;
+                }).toList());
+
+    }
 //    public static boolean isEmployeeRowCorrupt(String[] row, HashSet<String> existingIds){
 //
 //        if(row.length != 10) return true;

@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public abstract class AbstractDataValidator {
 
     /**
      * Everytime there is an intension to seperate out the data, a new arraylist is created*/
-    public  void spilitData(){
+    public  void splitData(){
         this.corruptedData = new ArrayList<>();
         this.validData = new ArrayList<>();
     }
