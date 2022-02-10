@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class CSVReader {
+public class CSVReader implements CSVTool{
 
 
     public static String[][] readCsvFile(String filename) {
@@ -28,4 +28,9 @@ public class CSVReader {
       }
       return stringArray;
   }
+
+    @Override
+    public String validate() {
+        return null;
+    }
 }
