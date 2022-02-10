@@ -1,18 +1,13 @@
 import model.EmployeeCsvDataValidator;
-import model.EmployeeRecord;
+import model.EmployeeRecordOld;
 import model.RecordCounter;
 import view.CSVView;
 
-import java.sql.Array;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 
 
 import static model.CSVReader.readCsvFile;
@@ -44,12 +39,12 @@ public class CSVDriver {
             System.out.println(Arrays.toString(array));
         });
 
-        ArrayList<EmployeeRecord> employeeRecords = new ArrayList<>(
+        ArrayList<EmployeeRecordOld> employeeRecords = new ArrayList<>(
                 //
                 // Emp ID,Name Prefix,First Name,Middle Initial,Last Name,Gender,E Mail,Date of Birth,Date of Joining,Salary
 
                 validData.stream().map(recordString ->{
-                    EmployeeRecord record = new EmployeeRecord();
+                    EmployeeRecordOld record = new EmployeeRecordOld();
                     record.employer_ID = Integer.parseInt(recordString[0]);
                     record.prefix = recordString[1];
                     record.firstName = recordString[2];
