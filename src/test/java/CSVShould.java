@@ -2,6 +2,7 @@
 import model.CSVReader;
 import model.EmployeeCsvDataValidator;
 import org.junit.jupiter.api.*;
+import view.CSVView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +45,7 @@ public class CSVShould {
     @DisplayName("When the program is run, unique records should be added to a separate collection.")
     public void uniqueRecordGetsAddedToDifferentCollection(){
         EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
-        dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
+        dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
         dataValidator.setUniqueAndDuplicate();
         assertNotNull(dataValidator.getUniqueData());
     }
@@ -53,7 +54,7 @@ public class CSVShould {
     @DisplayName("When the program is run, duplicated records should be added to a separate collection.")
     public void duplicatedRecordGetsAddedToDifferentCollection(){
         EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
-        dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
+        dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
         dataValidator.setUniqueAndDuplicate();
         assertNotNull(dataValidator.getDuplicatedData());
     }
@@ -62,9 +63,105 @@ public class CSVShould {
     @DisplayName("When the program is run, missingValue records should be added to a separate collection.")
     public void missingValuesRecordGetsAddedToDifferentCollection(){
         EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
-        dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
+        dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
         dataValidator.setMissingValuesData();
         assertNotNull(dataValidator.getMissingValuesData());
+    }
+
+    @Test
+    @DisplayName("When there is corrupted data in the file, only valid data should be in the valid data collection.")
+    public void returnValidRecords() {
+        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidator test = new EmployeeCsvDataValidator();
+        dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
+        test.setData(CSVReader.readCsvFile("TestValidData.csv"));
+        dataValidator.splitData();
+        ArrayList<String[]> actual = new ArrayList<>();
+        ArrayList<String[]> expected = new ArrayList<>();
+        for(String[] testRecord: test.getData()){
+            expected.add(testRecord);
+        }
+        for(String[] record: dataValidator.getValid()){
+            actual.add(record);
+        }
+
+        assertEquals(Arrays.deepToString(expected.toArray()), Arrays.deepToString(actual.toArray()));
+    }
+
+    @Test
+    @DisplayName("When there is corrupted data in the file, only corrupted data should be in the corrupted data collection.")
+    public void returnCorruptedRecords() {
+        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidator test = new EmployeeCsvDataValidator();
+        dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
+        test.setData(CSVReader.readCsvFile("TestCorruptedData.csv"));
+        dataValidator.splitData();
+        ArrayList<String[]> actual = new ArrayList<>();
+        ArrayList<String[]> expected = new ArrayList<>();
+        for(String[] testRecord: test.getData()){
+            expected.add(testRecord);
+        }
+        for(String[] record: dataValidator.getCorrupted()){
+            actual.add(record);
+        }
+        assertEquals(Arrays.deepToString(expected.toArray()), Arrays.deepToString(actual.toArray()));
+    }
+
+    @Test
+    @DisplayName("When there is unique data in the file, only unique data should be in the unique data collection.")
+    public void returnUniqueRecords() {
+        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidator test = new EmployeeCsvDataValidator();
+        dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
+        test.setData(CSVReader.readCsvFile("TestUniqueData.csv"));
+        dataValidator.setUniqueAndDuplicate();
+        ArrayList<String[]> actual = new ArrayList<>();
+        ArrayList<String[]> expected = new ArrayList<>();
+        for(String[] testRecord: test.getData()){
+            expected.add(testRecord);
+        }
+        for(String[] record: dataValidator.getUniqueData()){
+            actual.add(record);
+        }
+        assertEquals(Arrays.deepToString(expected.toArray()), Arrays.deepToString(actual.toArray()));
+    }
+
+    @Test
+    @DisplayName("When there is duplicated data in the file, only duplicated data should be in the duplicated data collection.")
+    public void returnDuplicatedRecords() {
+        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidator test = new EmployeeCsvDataValidator();
+        dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
+        test.setData(CSVReader.readCsvFile("TestDuplicatedData.csv"));
+        dataValidator.setUniqueAndDuplicate();
+        ArrayList<String[]> actual = new ArrayList<>();
+        ArrayList<String[]> expected = new ArrayList<>();
+        for(String[] testRecord: test.getData()){
+            expected.add(testRecord);
+        }
+        for(String[] record: dataValidator.getDuplicatedData()){
+            actual.add(record);
+        }
+        assertEquals(Arrays.deepToString(expected.toArray()), Arrays.deepToString(actual.toArray()));
+    }
+
+    @Test
+    @DisplayName("When there is data with missing values in the file, only that data should be in the missing values data collection.")
+    public void returnMissingValuesRecords() {
+        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidator test = new EmployeeCsvDataValidator();
+        dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
+        test.setData(CSVReader.readCsvFile("TestMissingValuesData.csv"));
+        dataValidator.setMissingValuesData();
+        ArrayList<String[]> actual = new ArrayList<>();
+        ArrayList<String[]> expected = new ArrayList<>();
+        for(String[] testRecord: test.getData()){
+            expected.add(testRecord);
+        }
+        for(String[] record: dataValidator.getMissingValuesData()){
+            actual.add(record);
+        }
+        assertEquals(Arrays.deepToString(expected.toArray()), Arrays.deepToString(actual.toArray()));
     }
 }
 
