@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 
-public class EmployeeCsvDataValidator extends AbstractDataValidator{
+public class EmployeeCsvDataValidator extends AbstractDataValidator implements CSVTool{
     private HashSet<String> existingIds;
 
     public EmployeeCsvDataValidator(String[][] data) {
@@ -107,5 +107,10 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator{
                 }
             }
         }
+    }
+
+    @Override
+    public String validate() {
+        return null;
     }
 }
