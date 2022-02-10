@@ -1,9 +1,6 @@
 package model;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
-public class EmployeeRecord {
+public class EmployeeRecordOld {
     public int employer_ID;
     public String prefix;
     public String firstName;

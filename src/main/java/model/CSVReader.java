@@ -3,8 +3,10 @@ package model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class CSVReader {
+
 
     public static String[][] readCsvFile(String filename) {
     String[][] stringArray  = new String[0][];
