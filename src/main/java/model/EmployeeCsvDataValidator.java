@@ -95,6 +95,7 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator implements C
         this.uniqueData = new ArrayList<>();
         this.duplicatedData = new ArrayList<>();
         String[][] data = this.getData();
+        this.duplicatedData.add(data[0]);
         HashSet<String> uniqueData = new HashSet<>();
         for(int i = 0; i < data.length; i++){
             String[] row = data[i];
@@ -114,11 +115,17 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator implements C
     public void setMissingValuesData(){
         this.missingValuesData = new ArrayList<>();
         String[][] data = this.getData();
+        this.missingValuesData.add(data[0]);
         for(int i = 0; i < data.length; i++){
             String[] row = data[i];
-            for(int j = 0; j < row.length; j++){
-                if (row[j] == ""){
-                    this.missingValuesData.add(row);
+            if(row.length != 10){
+                this.missingValuesData.add(row);
+            }
+            else{
+                for(int j = 0; j < row.length; j++){
+                    if (row[j] == ""){
+                        this.missingValuesData.add(row);
+                    }
                 }
             }
         }
