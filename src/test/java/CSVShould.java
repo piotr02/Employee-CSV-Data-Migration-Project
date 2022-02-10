@@ -39,6 +39,33 @@ public class CSVShould {
         ArrayList<String[]> corruptedData =  dataValidator.getCorrupted();
         assertNotNull(dataValidator.getCorrupted());
     }
+
+    @Test
+    @DisplayName("When the program is run, unique records should be added to a separate collection.")
+    public void uniqueRecordGetsAddedToDifferentCollection(){
+        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
+        dataValidator.setUniqueAndDuplicate();
+        assertNotNull(dataValidator.getUniqueData());
+    }
+
+    @Test
+    @DisplayName("When the program is run, duplicated records should be added to a separate collection.")
+    public void duplicatedRecordGetsAddedToDifferentCollection(){
+        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
+        dataValidator.setUniqueAndDuplicate();
+        assertNotNull(dataValidator.getDuplicatedData());
+    }
+
+    @Test
+    @DisplayName("When the program is run, missingValue records should be added to a separate collection.")
+    public void missingValuesRecordGetsAddedToDifferentCollection(){
+        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
+        dataValidator.setMissingValuesData();
+        assertNotNull(dataValidator.getMissingValuesData());
+    }
 }
 
 //    @Test
