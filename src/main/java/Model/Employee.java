@@ -1,6 +1,6 @@
 package model;
 
-public class EmployeeRecordOld {
+public class Employee {
     public int employer_ID;
     public String prefix;
     public String firstName;

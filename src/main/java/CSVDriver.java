@@ -1,5 +1,5 @@
 import model.EmployeeCsvDataValidator;
-import model.EmployeeRecordOld;
+import model.Employee;
 import model.RecordCounter;
 import view.CSVView;
 
@@ -39,12 +39,12 @@ public class CSVDriver {
             System.out.println(Arrays.toString(array));
         });
 
-        ArrayList<EmployeeRecordOld> employeeRecords = new ArrayList<>(
+        ArrayList<Employee> employeeRecords = new ArrayList<>(
                 //
                 // Emp ID,Name Prefix,First Name,Middle Initial,Last Name,Gender,E Mail,Date of Birth,Date of Joining,Salary
 
                 validData.stream().map(recordString ->{
-                    EmployeeRecordOld record = new EmployeeRecordOld();
+                    Employee record = new Employee();
                     record.employer_ID = Integer.parseInt(recordString[0]);
                     record.prefix = recordString[1];
                     record.firstName = recordString[2];
