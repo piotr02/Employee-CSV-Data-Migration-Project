@@ -26,11 +26,12 @@ public class CSVReader implements CSVTool{
       } catch (IOException e) {
           e.printStackTrace();
       }
+        System.out.println("Reading done");
       return stringArray;
   }
 
     @Override
     public String validate() {
-        return null;
+        return "";
     }
 }

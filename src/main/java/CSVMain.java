@@ -1,4 +1,6 @@
+import controller.CSVController;
 import view.CSVView;
+import controller.*;
 
 import java.util.Scanner;
 
@@ -18,6 +20,13 @@ public class CSVMain {
 
             //logger.info("Looking for User Input");
 
+
+            CSVView view = new CSVView();
+            String csvChoice = view.csvSelector();
+
+            CSVController controller = new CSVController();
+            String result = controller.initiateCSV(csvChoice);
+            view.displayCSV(result);
 
 //            SortView view = new SortView();
 //            String sortChoice = view.sortSelector();

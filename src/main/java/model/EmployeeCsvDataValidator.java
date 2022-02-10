@@ -111,6 +111,6 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator implements C
 
     @Override
     public String validate() {
-        return null;
+        return "";
     }
 }

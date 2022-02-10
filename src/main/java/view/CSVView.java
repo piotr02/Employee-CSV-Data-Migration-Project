@@ -2,8 +2,56 @@ package view;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
+
+import static view.CSVView.CSV.READ;
+import static view.CSVView.CSV.VALIDATE;
 
 public class CSVView {
+
+
+    public enum CSV {
+        READ("read"), VALIDATE("validate");
+
+        private final String choice;
+
+        CSV(String name) {
+            this.choice = name;
+        }
+
+        public String getCSV() { return getCSV(); }
+
+    }
+
+    public String csvSelector() {
+
+
+        boolean validEnum = false;
+        String selectCSV = null;
+
+        while (validEnum == false) {
+            System.out.println("Which feature would you like to use?");
+            Scanner scanner = new Scanner(System.in);
+            selectCSV = scanner.next().toLowerCase();
+
+            if (selectCSV.equals(READ.choice) || selectCSV.equals(VALIDATE.choice)) {
+                validEnum = true;
+
+            }
+
+            else {
+                validEnum = false;
+            }
+        }
+        return selectCSV;
+    }
+
+    public void displayCSV(String result) {
+
+        System.out.println(result);
+
+    }
+
     // Prints the records from the file line by line
     public void printRecords(String[][] records){
         System.out.println("All records from the file: ");
