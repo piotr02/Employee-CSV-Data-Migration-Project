@@ -17,24 +17,12 @@ public class CSVMain {
             System.out.println("=== Available Commands: 'read', 'validate' ================ ===");
             System.out.println("=== ======================================================= ===");
 
-
-            //logger.info("Looking for User Input");
-
-
             CSVView view = new CSVView();
             String csvChoice = view.csvSelector();
 
             CSVController controller = new CSVController();
             String result = controller.initiateCSV(csvChoice);
             view.displayCSV(result);
-
-//            SortView view = new SortView();
-//            String sortChoice = view.sortSelector();
-
-//            SortController controller = new SortController();
-//            String result = controller.initiateSort(sortChoice);
-//            view.displaySort(result);
-
 
             System.out.println("Would you like to run another Method?");
             Scanner scanner = new Scanner(System.in);
