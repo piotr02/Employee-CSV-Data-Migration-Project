@@ -1,7 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+
+import static model.CSVReader.readCsvFile;
 
 
 public class EmployeeCsvDataValidator extends AbstractDataValidator implements CSVTool{
@@ -13,6 +16,18 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator implements C
 
     public EmployeeCsvDataValidator(){
         super();
+
+        System.out.println();
+        System.out.println("========== Get File ==========");
+        System.out.println();
+        String filename = "EmployeeRecords.csv";
+        System.out.println(filename);
+        System.out.println();
+
+        System.out.println("=====   Validate CSV   ========");
+        System.out.println();
+
+
     }
 
     /**
