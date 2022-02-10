@@ -1,15 +1,13 @@
 import model.EmployeeCsvDataValidator;
-import model.EmployeeRecord;
+import model.EmployeeRecordOld;
+import model.RecordCounter;
+import view.CSVView;
 
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 
 
 import static model.CSVReader.readCsvFile;
@@ -41,12 +39,12 @@ public class CSVDriver {
             System.out.println(Arrays.toString(array));
         });
 
-        ArrayList<EmployeeRecord> employeeRecords = new ArrayList<>(
+        ArrayList<EmployeeRecordOld> employeeRecords = new ArrayList<>(
                 //
                 // Emp ID,Name Prefix,First Name,Middle Initial,Last Name,Gender,E Mail,Date of Birth,Date of Joining,Salary
 
                 validData.stream().map(recordString ->{
-                    EmployeeRecord record = new EmployeeRecord();
+                    EmployeeRecordOld record = new EmployeeRecordOld();
                     record.employer_ID = Integer.parseInt(recordString[0]);
                     record.prefix = recordString[1];
                     record.firstName = recordString[2];
@@ -77,6 +75,20 @@ public class CSVDriver {
                     return record;
                 }).toList());
 
+        dataValidator.setUniqueAndDuplicate();
+        ArrayList<String[]> uniqueData = dataValidator.getUniqueData();
+        ArrayList<String[]> duplicatedData = dataValidator.getDuplicatedData();
+        duplicatedData.forEach(array->{
+            System.out.println(Arrays.toString(array));
+        });
+        dataValidator.setMissingValuesData();
+        ArrayList<String[]> missingValuesData = dataValidator.getMissingValuesData();
+        missingValuesData.forEach(array->{
+            System.out.println(Arrays.toString(array));
+        });
+        CSVView view = new CSVView();
+        RecordCounter counter = new RecordCounter();
+        System.out.println(view.getDuplicates(counter.countDuplicated(duplicatedData)));
     }
 //    public static boolean isEmployeeRowCorrupt(String[] row, HashSet<String> existingIds){
 //

@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CSVView {
@@ -11,11 +12,19 @@ public class CSVView {
         }
     }
 
-    // Prints clean records
-    public void printClean(String[][] cleanRecords){
-        System.out.println("Clean records from the file: ");
-        for(String[] cleanRecord: cleanRecords){
-            System.out.println(Arrays.deepToString(cleanRecord));
+    // Prints valid records
+    public void printValid(ArrayList<String[]> validData){
+        System.out.println("Valid records from the file: ");
+        for(String[] validRecord: validData){
+            System.out.println(Arrays.deepToString(validRecord));
+        }
+    }
+
+    // Prints corrupted records
+    public void printCorrupted(ArrayList<String[]> corruptedData){
+        System.out.println("Corrupted records from the file: ");
+        for(String[] corruptedRecord: corruptedData){
+            System.out.println(Arrays.deepToString(corruptedRecord));
         }
     }
 
@@ -24,9 +33,14 @@ public class CSVView {
         return "Number of unique records in the file: " + unique;
     }
 
-    // Returns the number of clean records in the file
-    public String getClean(int clean){
-        return "Number of clean records in the file: " + clean;
+    // Returns the number of valid records in the file
+    public String getValid(int valid){
+        return "Number of valid records in the file: " + valid;
+    }
+
+    // Returns the number of corrupted records in the file
+    public String getCorrupted(int corrupted){
+        return "Number of corrupted records in the file: " + corrupted;
     }
 
     // Returns the number of duplicate records in the file
@@ -45,13 +59,15 @@ public class CSVView {
     }
 
     // Prints the results interface
-    public void printResult(int unique, int clean, int duplicates, int missingFields, String questionableRecords){
+    public void printResult(int unique, int valid, int corrupted, int duplicates, int missingFields, String questionableRecords){
         System.out.println("==================================================\n" +
                 "Employee CSV Data Migration Project\n" +
                 "==================================================\n +" +
                 getUnique(unique)+
                 "\n--------------------------------------------------\n"+
-                getClean(clean)+
+                getValid(valid)+
+                "\n--------------------------------------------------\n"+
+                getCorrupted(corrupted)+
                 "\n--------------------------------------------------\n"+
                 getDuplicates(duplicates)+
                 "\n--------------------------------------------------\n"+
