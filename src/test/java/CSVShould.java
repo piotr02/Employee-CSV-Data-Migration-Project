@@ -1,6 +1,6 @@
 
 import model.CSVReader;
-import model.EmployeeCsvDataValidator;
+import model.EmployeeCsvDataValidatorNew;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class CSVShould {
     @Test
     @DisplayName("When the program is run, corrupt data should be read and populate a seperate collection.")
     public void corruptRecordGetsAddedToDifferentCollection() {
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
         dataValidator.splitData();
         ArrayList<String[]> corruptedData =  dataValidator.getCorrupted();
@@ -43,7 +43,7 @@ public class CSVShould {
     @Test
     @DisplayName("When the program is run, unique records should be added to a separate collection.")
     public void uniqueRecordGetsAddedToDifferentCollection(){
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
         dataValidator.setUniqueAndDuplicate();
         assertNotNull(dataValidator.getUniqueData());
@@ -52,7 +52,7 @@ public class CSVShould {
     @Test
     @DisplayName("When the program is run, duplicated records should be added to a separate collection.")
     public void duplicatedRecordGetsAddedToDifferentCollection(){
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
         dataValidator.setUniqueAndDuplicate();
         assertNotNull(dataValidator.getDuplicatedData());
@@ -61,7 +61,7 @@ public class CSVShould {
     @Test
     @DisplayName("When the program is run, missingValue records should be added to a separate collection.")
     public void missingValuesRecordGetsAddedToDifferentCollection(){
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
         dataValidator.setMissingValuesData();
         assertNotNull(dataValidator.getMissingValuesData());

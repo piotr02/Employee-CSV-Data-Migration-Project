@@ -3,12 +3,6 @@ package model;
 import java.util.ArrayList;
 
 public abstract class AbstractDataValidator {
-    protected ArrayList<String[]> validData;
-    protected ArrayList<String[]> corruptedData;
-    protected ArrayList<String[]> uniqueData;
-    protected ArrayList<String[]> duplicatedData;
-    protected ArrayList<String[]> missingValuesData;
-    private String[][] data;
 
 
     public AbstractDataValidator(String[][] data){
@@ -51,10 +45,10 @@ public abstract class AbstractDataValidator {
     }
 
     public ArrayList<String[]> getDuplicatedData() {
-        return duplicatedData;
+        return this.getDuplicatedData();
     }
 
     public ArrayList<String[]> getMissingValuesData() {
-        return missingValuesData;
+        return this.getMissingValuesData();
     }
 }

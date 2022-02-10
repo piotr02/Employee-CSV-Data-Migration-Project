@@ -1,4 +1,4 @@
-import model.EmployeeCsvDataValidator;
+import model.EmployeeCsvDataValidatorNew;
 import model.Employee;
 import model.RecordCounter;
 import view.CSVView;
@@ -29,15 +29,16 @@ public class CSVDriver {
         System.out.println("============ Seperate Corrupt ===============");
         System.out.println("");
 
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
+
         dataValidator.setData(readCsvFile("EmployeeRecords.csv"));
         dataValidator.splitData();
         ArrayList<String[]> corruptedData =  dataValidator.getCorrupted();
         ArrayList<String[]> validData =  dataValidator.getValid();
 
-        corruptedData.forEach(array ->{
-            System.out.println(Arrays.toString(array));
-        });
+//        corruptedData.forEach(array ->{
+//            System.out.println(Arrays.toString(array));
+//        });
 
         ArrayList<Employee> employeeRecords = new ArrayList<>(
                 //
