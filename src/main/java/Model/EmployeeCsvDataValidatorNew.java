@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 
-public class EmployeeCsvDataValidatorNew /*extends AbstractDataValidator implements CSVTool */{
+public class EmployeeCsvDataValidatorNew{
 
     private ArrayList<String[]> cleanedData;
+
+    //uniqueCleanRecords Should be added to the database
     private ArrayList<String[]> uniqueCleanRecords;
     private ArrayList<String[]> recordsWithMissingFields;
     private ArrayList<String[]> recordsWithDuplicatedId;
@@ -68,7 +70,7 @@ public class EmployeeCsvDataValidatorNew /*extends AbstractDataValidator impleme
     //Emp ID,Name Prefix,First Name,Middle Initial,Last Name,Gender,E Mail,Date of Birth,Date of Joining,Salary
 
 
-    private boolean isEmployeeIdValid(String employeeId){
+    public boolean isEmployeeIdValid(String employeeId){
         try {
             Integer.parseInt(employeeId);
             return true;
@@ -77,33 +79,38 @@ public class EmployeeCsvDataValidatorNew /*extends AbstractDataValidator impleme
         }
     }
 
-    private boolean isPrefixValid(String prefix){
+    public boolean isPrefixValid(String prefix){
+        if(prefix == null) return  false;
         return prefix.endsWith(".");
     }
 
-    private boolean isFirstNameValid(String firstName){
+    public boolean isFirstNameValid(String firstName){
+        if (firstName == null) return false;
         return firstName.length() < 50;
     }
 
-    private boolean isMiddleInitialValid(String middleInitial){
+    public boolean isMiddleInitialValid(String middleInitial){
+        if(middleInitial == null) return false;
         return middleInitial.length() == 1;
     }
 
-    private boolean isLastNameValid(String lastName){
-
+    public boolean isLastNameValid(String lastName){
+        if (lastName == null) return false;
         return lastName.length() < 50;
     }
 
-    private boolean isGenderFieldValid(String data){
-        return data.equals("M") || data.equals("F") || data.equals("X");
+    public boolean isGenderFieldValid(String gender){
+        if (gender == null) return false;
+        return gender.equals("M") || gender.equals("F") || gender.equals("X");
     }
 
-    private boolean isEmailValid(String email){
+    public boolean isEmailValid(String email){
+        if(email == null) return false;
         //The regex for an email
         return email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
     }
 
-    private boolean isDateOfBirthValid(String dateOfBirth){
+    public boolean isDateOfBirthValid(String dateOfBirth){
 
         SimpleDateFormat fromRecordString = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -114,7 +121,7 @@ public class EmployeeCsvDataValidatorNew /*extends AbstractDataValidator impleme
         }
     }
 
-    private boolean isDateOfJoiningValid(String dateOfJoining){
+    public boolean isDateOfJoiningValid(String dateOfJoining){
         SimpleDateFormat fromRecordString = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date.valueOf(String.valueOf(fromRecordString.parse(dateOfJoining)));
@@ -124,7 +131,7 @@ public class EmployeeCsvDataValidatorNew /*extends AbstractDataValidator impleme
         }
     }
 
-    private boolean isSalaryValid(String salary){
+    public boolean isSalaryValid(String salary){
         try {
             Integer.parseInt(salary);
             return true;
@@ -134,7 +141,8 @@ public class EmployeeCsvDataValidatorNew /*extends AbstractDataValidator impleme
     }
 
 
-    private boolean isRecordContainingIncorrectFields(String[] record) {
+    public boolean isRecordContainingIncorrectFields(String[] record) {
+        if(record == null) return true;
         String id = record[0];
         String prefix = record[1];
         String firstName = record[2];
@@ -145,6 +153,10 @@ public class EmployeeCsvDataValidatorNew /*extends AbstractDataValidator impleme
         String dateOfBirth = record[7];
         String dateOfJoining = record[8];
         String salary = record[9];
+
+        String[] recordString = {id, prefix, firstName, middleInitial, lastName, gender,
+        email, dateOfBirth, dateOfJoining, salary};
+
 
         boolean isValid = true;
         isValid = isValid &&
@@ -164,6 +176,7 @@ public class EmployeeCsvDataValidatorNew /*extends AbstractDataValidator impleme
 
 
     private boolean isFieldsMissing(String[] row){
+        if (row == null) return true;
         if (row.length < 10) return true;
         for(int i = 0; i < 10; i++){
             if(row[i].trim().equals("")){
@@ -174,6 +187,8 @@ public class EmployeeCsvDataValidatorNew /*extends AbstractDataValidator impleme
     }
 
     private boolean isRecordIdDuplicated(String[] row, HashSet<String> existingIds){
+        if (row == null) return false;
+
         if(existingIds.contains(row[0])){
             return true;
         }

@@ -1,3 +1,4 @@
+import model.EmployeeCsvDataValidator;
 import model.EmployeeCsvDataValidatorNew;
 import model.Employee;
 import model.RecordCounter;
@@ -29,7 +30,7 @@ public class CSVDriver {
         System.out.println("============ Seperate Corrupt ===============");
         System.out.println("");
 
-        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
+        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
 
         dataValidator.setData(readCsvFile("EmployeeRecords.csv"));
         dataValidator.splitData();
