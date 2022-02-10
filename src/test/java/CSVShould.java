@@ -1,6 +1,7 @@
 
 import model.CSVReader;
 import model.EmployeeCsvDataValidator;
+import model.EmployeeCsvDataValidatorNew;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
