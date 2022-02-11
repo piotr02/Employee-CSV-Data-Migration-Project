@@ -1,4 +1,6 @@
-package Model;
+package model;
+
+import model.ConnectionFactory;
 
 import java.io.IOException;
 import java.sql.*;
