@@ -8,8 +8,6 @@ import static view.CSVView.CSV.READ;
 import static view.CSVView.CSV.VALIDATE;
 
 public class CSVView {
-
-
     public enum CSV {
         READ("read"), VALIDATE("validate");
 

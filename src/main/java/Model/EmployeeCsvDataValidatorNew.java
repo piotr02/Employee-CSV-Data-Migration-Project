@@ -10,7 +10,12 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 
-public class EmployeeCsvDataValidatorNew{
+public class EmployeeCsvDataValidatorNew {
+
+//    @Override
+//    public String validate() {
+//        return null;
+//    }
 
     public enum Field{
         Id(0),
@@ -36,7 +41,7 @@ public class EmployeeCsvDataValidatorNew{
     private ArrayList<String[]> cleanedData;
 
     //uniqueCleanRecords Should be added to the database
-    private ArrayList<String[]> uniqueCleanSqlReadyRecords;
+//    private ArrayList<String[]> uniqueCleanSqlReadyRecords;
     private ArrayList<String[]> uniqueCleanRecords;
     private ArrayList<String[]> recordsWithMissingFields;
     private ArrayList<String[]> recordsWithDuplicatedId;
@@ -45,26 +50,16 @@ public class EmployeeCsvDataValidatorNew{
 
 
     public EmployeeCsvDataValidatorNew(String[][] data){
+        this.data = Arrays.copyOfRange(data, 1, data.length);
+        this.cleanedData = new ArrayList<>();
+        this.uniqueCleanRecords = new ArrayList<>();
+        this.recordsWithMissingFields = new ArrayList<>();
+        this.recordsWithDuplicatedId = new ArrayList<>();
+        this.recordsWithIncorrectFields = new ArrayList<>();
         this.cleanData();
         this.catagorise();
-        this.makeSqlReady();
     }
 
-    private void makeSqlReady(){
-        SimpleDateFormat fromRecordString = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat forSql = new SimpleDateFormat("yyyy-MM-dd");
-
-        for(String[] record : uniqueCleanRecords){
-            String[] sqlReadyRecord = Arrays.copyOf(record, record.length);
-            try {
-                sqlReadyRecord[Field.DateOfJoining.index] = forSql.format(fromRecordString.parse(record[Field.DateOfJoining.index]));
-                sqlReadyRecord[Field.DateOfBirth.index] = forSql.format(fromRecordString.parse(record[Field.DateOfBirth.index]));
-                uniqueCleanSqlReadyRecords.add(sqlReadyRecord);
-            }catch (ParseException e){
-                e.printStackTrace();
-            }
-        }
-    }
     public void cleanData() {
 
         for (int i = 0; i < data.length; i++) {
@@ -91,21 +86,21 @@ public class EmployeeCsvDataValidatorNew{
             boolean uniqueCleanRecord = true;
             if(isFieldsMissing(record)){
                 this.recordsWithMissingFields.add(record);
-                uniqueCleanRecord = false;
-            }
-            if(this.isRecordIdDuplicated(record, existingIds)){
-                this.recordsWithDuplicatedId.add(record);
-                uniqueCleanRecord = false;
-            }
-            if(this.isRecordContainingIncorrectFields(record)){
                 this.recordsWithIncorrectFields.add(record);
-                uniqueCleanRecord = false;
-            }
-            if(uniqueCleanRecord){
-                this.uniqueCleanRecords.add(record);
+            }else {
+                if(this.isRecordIdDuplicated(record, existingIds)){
+                    this.recordsWithDuplicatedId.add(record);
 
-
-                existingIds.add(record[0]);
+                    uniqueCleanRecord = false;
+                }
+                if(this.isRecordContainingIncorrectFields(record)){
+                    this.recordsWithIncorrectFields.add(record);
+                    uniqueCleanRecord = false;
+                }
+                if(uniqueCleanRecord){
+                    this.uniqueCleanRecords.add(record);
+                    existingIds.add(record[0]);
+                }
             }
         }
     }
@@ -116,7 +111,7 @@ public class EmployeeCsvDataValidatorNew{
 
     public boolean isRecordContainingIncorrectFields(String[] record) {
         if(record == null) return true;
-        String id = record[Field.Id.Id.index];
+        String id = record[Field.Id.index];
         String prefix = record[Field.Prefix.index];
         String firstName = record[Field.FirstName.index];
         String middleInitial = record[Field.MiddleInitial.index];
@@ -131,19 +126,17 @@ public class EmployeeCsvDataValidatorNew{
         email, dateOfBirth, dateOfJoining, salary};
 
 
-        boolean isValid = true;
-        isValid = isValid &&
-                new IntegerValidator().validate(id) &&
-                new StringLengthValidator(10).validate(prefix) &&
-                new StringEndsWithValidator(".").validate(prefix) &&
-                new StringLengthValidator(50).validate(firstName) &&
-                new StringLengthValidator(1).validate(middleInitial) &&
-                new StringLengthValidator(50).validate(lastName) &&
-                new GenderValidator().validate(gender) &&
-                new EmailValidator().validate(email) &&
-                new DateValidator("MM/dd/yyyy").validate(dateOfBirth) &&
-                new DateValidator("MM/dd/yyyy").validate(dateOfJoining) &&
-                new IntegerValidator().validate(salary);
+        boolean isValid = new IntegerValidator().validate(id);
+        isValid &= new StringLengthValidator(10).validate(prefix);
+        isValid &= new StringEndsWithValidator(".").validate(prefix);
+        isValid &= new StringLengthValidator(50).validate(firstName);
+        isValid &= new StringLengthValidator(1).validate(middleInitial);
+        isValid &= new StringLengthValidator(50).validate(lastName);
+        isValid &= new GenderValidator().validate(gender);
+        isValid &= new EmailValidator().validate(email);
+        isValid &= new DateValidator("MM/dd/yyyy").validate(dateOfBirth);
+        isValid &= new DateValidator("MM/dd/yyyy").validate(dateOfJoining);
+        isValid &= new IntegerValidator().validate(salary);
         return !isValid;
     }
 
@@ -188,7 +181,4 @@ public class EmployeeCsvDataValidatorNew{
         return uniqueCleanRecords;
     }
 
-    public ArrayList<String[]> getUniqueCleanSqlReadyRecords() {
-        return uniqueCleanSqlReadyRecords;
-    }
 }

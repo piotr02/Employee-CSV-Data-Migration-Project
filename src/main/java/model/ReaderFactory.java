@@ -1,9 +1,11 @@
 package model;
 
-public class ReaderFactory extends CSVToolFactory {
+public class ReaderFactory {
+    /*
     @Override
     public CSVTool getInstance() {
         System.out.println("Reading CSV File");
         return new CSVReader();
     }
+    */
 }

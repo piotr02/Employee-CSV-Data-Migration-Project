@@ -12,8 +12,8 @@ public class StringLengthValidatorTest {
         value = {
             "HelloWorld|50|true",
             "HelloWorld|5|false",
-            "HelloWorld|11|true",
-            "HelloWorld|10|false"
+            "HelloWorld|10|true",
+            "HelloWorld|9|false"
         }
     )
     void testStringLengthValidity(String str, int maxLength, boolean expected){

@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 //import Model.ConnectionFactory;
 
@@ -6,14 +6,6 @@ import java.io.IOException;
 import java.sql.*;
 
 public class Employee {
-
-
-    public static void main(String[] args) {
-
-
-
-
-
 
     public int employer_ID;
     public String prefix;
@@ -49,4 +41,4 @@ public class Employee {
 
 
     }
-    }
+
