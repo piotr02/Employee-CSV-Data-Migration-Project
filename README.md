@@ -22,6 +22,7 @@ Project is created with:
 * Java for IntelliJ
 * GitHub Desktop
 * GitHub
+* MySQL
 
 ## Programs/Libraries/Frameworks:
 * [Intellij](https://www.jetbrains.com/idea/download/#section=windows)
