@@ -12,7 +12,7 @@ import java.util.HashSet;
 
 public class EmployeeCsvDataValidatorNew{
 
-    private enum Field{
+    public enum Field{
         Id(0),
         Prefix(1),
         FirstName(2),
@@ -27,6 +27,10 @@ public class EmployeeCsvDataValidatorNew{
         private int index;
         Field(int index){
             this.index = index;
+        }
+
+        public int getIndex() {
+            return index;
         }
     }
     private ArrayList<String[]> cleanedData;
