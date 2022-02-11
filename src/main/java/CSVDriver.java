@@ -1,7 +1,8 @@
-import Model.Employee;
+import model.CSVReader;
 import model.EmployeeCsvDataValidator;
-//import model.Employee;
-//import model.RecordCounter;
+import model.EmployeeCsvDataValidatorNew;
+import model.Employee;
+import model.RecordCounter;
 import view.CSVView;
 
 import java.sql.Date;
@@ -31,14 +32,15 @@ public class CSVDriver {
         System.out.println("");
 
         EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+
         dataValidator.setData(readCsvFile("EmployeeRecords.csv"));
         dataValidator.splitData();
         ArrayList<String[]> corruptedData =  dataValidator.getCorrupted();
         ArrayList<String[]> validData =  dataValidator.getValid();
 
-        corruptedData.forEach(array ->{
-            System.out.println(Arrays.toString(array));
-        });
+//        corruptedData.forEach(array ->{
+//            System.out.println(Arrays.toString(array));
+//        });
 
         ArrayList<Employee> employeeRecords = new ArrayList<>(
                 //

@@ -8,7 +8,34 @@ import java.util.Arrays;
 public class CSVReader implements CSVTool{
 
 
+    public CSVReader() {
+
+        System.out.println();
+        System.out.println("========== Get File ==========");
+        System.out.println();
+        String filename = "EmployeeRecords.csv";
+        System.out.println(filename);
+        System.out.println();
+
+        System.out.println("========   Read CSV   ========");
+        System.out.println();
+
+
+        System.out.println(Arrays.deepToString(
+                readCsvFile("EmployeeRecords.csv")));
+
+
+        System.out.println();
+
+        System.out.println();
+        System.out.println("====================================");
+
+    }
+
+
+
     public static String[][] readCsvFile(String filename) {
+
     String[][] stringArray  = new String[0][];
       try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
           StringBuilder sb = new StringBuilder();
@@ -32,6 +59,6 @@ public class CSVReader implements CSVTool{
 
     @Override
     public String validate() {
-        return "";
+        return null;
     }
 }
