@@ -6,19 +6,13 @@ import java.util.ArrayList;
 
 public class CSVThread extends Thread{
     private String name;
-    private BufferedReader inFile;
     private ArrayList<String[]> list;
-    private ArrayList<CSVThread> threadList = new ArrayList<>();
+    private BufferedReader inFile;
 
-    public CSVThread(String name, BufferedReader inFile){
+    public CSVThread(String name, ArrayList<String[]> list, BufferedReader inFile){
         this.name = name;
+        this.list = list;
         this.inFile = inFile;
-    }
-
-    public void createThreads(int numberOfThreads){
-        for(int i = 0; i < numberOfThreads; i++){
-            this.threadList.add(new CSVThread("thread" + i, inFile));
-        }
     }
 
     public void populateDatabase(){
@@ -34,15 +28,10 @@ public class CSVThread extends Thread{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    }
-
-    public void executeThreads(ArrayList<CSVThread> threadList){
-
     }
 
     @Override
     public void run(){
-        executeThreads();
+        populateDatabase();
     }
 }
