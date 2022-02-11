@@ -19,8 +19,8 @@ public class ValidRecordToSqlReadyRecord {
         for(String[] record : uniqueValidRecords){
             String[] sqlReadyRecord = Arrays.copyOf(record, record.length);
             try {
-                sqlReadyRecord[EmployeeCsvDataValidatorNew.Field.DateOfJoining.getIndex()] = forSql.format(fromRecordString.parse(record[EmployeeCsvDataValidatorNew.Field.DateOfJoining.index]));
-                sqlReadyRecord[EmployeeCsvDataValidatorNew.Field.DateOfBirth.getIndex()] = forSql.format(fromRecordString.parse(record[EmployeeCsvDataValidatorNew.Field.DateOfBirth.index]));
+                sqlReadyRecord[EmployeeCsvDataValidatorNew.Field.DateOfJoining.getIndex()] = forSql.format(fromRecordString.parse(record[EmployeeCsvDataValidatorNew.Field.DateOfJoining.getIndex()]));
+                sqlReadyRecord[EmployeeCsvDataValidatorNew.Field.DateOfBirth.getIndex()] = forSql.format(fromRecordString.parse(record[EmployeeCsvDataValidatorNew.Field.DateOfBirth.getIndex()]));
                 uniqueValidRecords.add(sqlReadyRecord);
             }catch (ParseException e){
                 e.printStackTrace();
