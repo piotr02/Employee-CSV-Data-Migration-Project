@@ -6,14 +6,37 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 
 public class EmployeeCsvDataValidatorNew{
 
+    public enum Field{
+        Id(0),
+        Prefix(1),
+        FirstName(2),
+        MiddleInitial(3),
+        LastName(4),
+        Gender(5),
+        Email(6),
+        DateOfBirth(7),
+        DateOfJoining(8),
+        Salary(9);
+
+        private int index;
+        Field(int index){
+            this.index = index;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
     private ArrayList<String[]> cleanedData;
 
     //uniqueCleanRecords Should be added to the database
+    private ArrayList<String[]> uniqueCleanSqlReadyRecords;
     private ArrayList<String[]> uniqueCleanRecords;
     private ArrayList<String[]> recordsWithMissingFields;
     private ArrayList<String[]> recordsWithDuplicatedId;
@@ -24,12 +47,24 @@ public class EmployeeCsvDataValidatorNew{
     public EmployeeCsvDataValidatorNew(String[][] data){
         this.cleanData();
         this.catagorise();
+        this.makeSqlReady();
     }
 
-    public  EmployeeCsvDataValidatorNew(){
+    private void makeSqlReady(){
+        SimpleDateFormat fromRecordString = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat forSql = new SimpleDateFormat("yyyy-MM-dd");
 
+        for(String[] record : uniqueCleanRecords){
+            String[] sqlReadyRecord = Arrays.copyOf(record, record.length);
+            try {
+                sqlReadyRecord[Field.DateOfJoining.index] = forSql.format(fromRecordString.parse(record[Field.DateOfJoining.index]));
+                sqlReadyRecord[Field.DateOfBirth.index] = forSql.format(fromRecordString.parse(record[Field.DateOfBirth.index]));
+                uniqueCleanSqlReadyRecords.add(sqlReadyRecord);
+            }catch (ParseException e){
+                e.printStackTrace();
+            }
+        }
     }
-
     public void cleanData() {
 
         for (int i = 0; i < data.length; i++) {
@@ -41,6 +76,8 @@ public class EmployeeCsvDataValidatorNew{
             }
         });
     }
+
+
 
     public void catagorise(){
         HashSet<String> existingIds = new HashSet<>();
@@ -67,6 +104,7 @@ public class EmployeeCsvDataValidatorNew{
             if(uniqueCleanRecord){
                 this.uniqueCleanRecords.add(record);
 
+
                 existingIds.add(record[0]);
             }
         }
@@ -78,16 +116,16 @@ public class EmployeeCsvDataValidatorNew{
 
     public boolean isRecordContainingIncorrectFields(String[] record) {
         if(record == null) return true;
-        String id = record[0];
-        String prefix = record[1];
-        String firstName = record[2];
-        String middleInitial = record[3];
-        String lastName = record[4];
-        String gender = record[5];
-        String email = record[6];
-        String dateOfBirth = record[7];
-        String dateOfJoining = record[8];
-        String salary = record[9];
+        String id = record[Field.Id.Id.index];
+        String prefix = record[Field.Prefix.index];
+        String firstName = record[Field.FirstName.index];
+        String middleInitial = record[Field.MiddleInitial.index];
+        String lastName = record[Field.LastName.index];
+        String gender = record[Field.Gender.index];
+        String email = record[Field.Email.index];
+        String dateOfBirth = record[Field.DateOfBirth.index];
+        String dateOfJoining = record[Field.DateOfJoining.index];
+        String salary = record[Field.Salary.index];
 
         String[] recordString = {id, prefix, firstName, middleInitial, lastName, gender,
         email, dateOfBirth, dateOfJoining, salary};
@@ -150,4 +188,7 @@ public class EmployeeCsvDataValidatorNew{
         return uniqueCleanRecords;
     }
 
+    public ArrayList<String[]> getUniqueCleanSqlReadyRecords() {
+        return uniqueCleanSqlReadyRecords;
+    }
 }
