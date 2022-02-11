@@ -1,5 +1,7 @@
 package model;
 
+import model.validator.*;
+
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +26,9 @@ public class EmployeeCsvDataValidatorNew{
         this.catagorise();
     }
 
+    public  EmployeeCsvDataValidatorNew(){
 
+    }
 
     public void cleanData() {
 
@@ -62,6 +66,7 @@ public class EmployeeCsvDataValidatorNew{
             }
             if(uniqueCleanRecord){
                 this.uniqueCleanRecords.add(record);
+
                 existingIds.add(record[0]);
             }
         }
@@ -69,76 +74,6 @@ public class EmployeeCsvDataValidatorNew{
 
     //Emp ID,Name Prefix,First Name,Middle Initial,Last Name,Gender,E Mail,Date of Birth,Date of Joining,Salary
 
-
-    public boolean isEmployeeIdValid(String employeeId){
-        try {
-            Integer.parseInt(employeeId);
-            return true;
-        }catch (final NumberFormatException e){
-            return false;
-        }
-    }
-
-    public boolean isPrefixValid(String prefix){
-        if(prefix == null) return  false;
-        return prefix.endsWith(".");
-    }
-
-    public boolean isFirstNameValid(String firstName){
-        if (firstName == null) return false;
-        return firstName.length() < 50;
-    }
-
-    public boolean isMiddleInitialValid(String middleInitial){
-        if(middleInitial == null) return false;
-        return middleInitial.length() == 1;
-    }
-
-    public boolean isLastNameValid(String lastName){
-        if (lastName == null) return false;
-        return lastName.length() < 50;
-    }
-
-    public boolean isGenderFieldValid(String gender){
-        if (gender == null) return false;
-        return gender.equals("M") || gender.equals("F") || gender.equals("X");
-    }
-
-    public boolean isEmailValid(String email){
-        if(email == null) return false;
-        //The regex for an email
-        return email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-    }
-
-    public boolean isDateOfBirthValid(String dateOfBirth){
-
-        SimpleDateFormat fromRecordString = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date.valueOf(String.valueOf(fromRecordString.parse(dateOfBirth)));
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
-    }
-
-    public boolean isDateOfJoiningValid(String dateOfJoining){
-        SimpleDateFormat fromRecordString = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date.valueOf(String.valueOf(fromRecordString.parse(dateOfJoining)));
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
-    }
-
-    public boolean isSalaryValid(String salary){
-        try {
-            Integer.parseInt(salary);
-            return true;
-        }catch (final NumberFormatException e){
-            return false;
-        }
-    }
 
 
     public boolean isRecordContainingIncorrectFields(String[] record) {
@@ -160,17 +95,17 @@ public class EmployeeCsvDataValidatorNew{
 
         boolean isValid = true;
         isValid = isValid &&
-                isEmployeeIdValid(id) &&
-                isPrefixValid(prefix) &&
-                isFirstNameValid(firstName) &&
-                isMiddleInitialValid(middleInitial) &&
-                isLastNameValid(lastName) &&
-                isGenderFieldValid(gender) &&
-                isEmailValid(email) &&
-                isDateOfBirthValid(dateOfBirth) &&
-                isDateOfJoiningValid(dateOfJoining) &&
-                isSalaryValid(salary);
-
+                new IntegerValidator().validate(id) &&
+                new StringLengthValidator(10).validate(prefix) &&
+                new StringEndsWithValidator(".").validate(prefix) &&
+                new StringLengthValidator(50).validate(firstName) &&
+                new StringLengthValidator(1).validate(middleInitial) &&
+                new StringLengthValidator(50).validate(lastName) &&
+                new GenderValidator().validate(gender) &&
+                new EmailValidator().validate(email) &&
+                new DateValidator("MM/dd/yyyy").validate(dateOfBirth) &&
+                new DateValidator("MM/dd/yyyy").validate(dateOfJoining) &&
+                new IntegerValidator().validate(salary);
         return !isValid;
     }
 
