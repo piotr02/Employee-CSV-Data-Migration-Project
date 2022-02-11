@@ -15,6 +15,12 @@ public class CSVThread extends Thread{
         this.inFile = inFile;
     }
 
+    /**
+     * Populates the database with values from the file.
+     */
+    //!!!!!!!!!!
+    // RIGHT NOW IT POPULATES AN ARRAY, DATABASE METHODS NEEDED
+    //!!!!!!!!!!
     public void populateDatabase(){
         String line;
         try {
@@ -24,12 +30,15 @@ public class CSVThread extends Thread{
                     list.add(values);
                 }
             }
-            System.out.println("Finished" + name);
+            System.out.println("Finished " + name);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Overrides the default run() method from class Thread to populate the database.
+     */
     @Override
     public void run(){
         populateDatabase();
