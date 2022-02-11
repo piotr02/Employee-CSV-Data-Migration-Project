@@ -3,12 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 
 import static model.CSVReader.readCsvFile;
 
 
 public class EmployeeCsvDataValidator extends AbstractDataValidator implements CSVTool{
-    private HashSet<String> existingIds;
 
     public EmployeeCsvDataValidator(String[][] data) {
         super(data);
@@ -35,14 +35,14 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator implements C
     @Override
     public void splitData() {
         super.splitData();
-        this.existingIds = new HashSet<>();
+        HashSet<String> existingIds = new HashSet<>();
         String[][] data = this.getData();
         for(int i = 0; i < getData().length; i++){
             String[] row = data[i];
-            if(isEmployeeRowCorrupt(row, this.existingIds)){
+            if(isEmployeeRowCorrupt(row, existingIds)){
                 this.corruptedData.add(data[i]);
             }else {
-                this.existingIds.add(row[0]);
+                existingIds.add(row[0]);
                 this.validData.add(row);
             }
         }
@@ -97,12 +97,10 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator implements C
         String[][] data = this.getData();
         this.duplicatedData.add(data[0]);
         HashSet<String> uniqueData = new HashSet<>();
-        for(int i = 0; i < data.length; i++){
-            String[] row = data[i];
-            if(uniqueData.contains(row[0])){
+        for (String[] row : data) {
+            if (uniqueData.contains(row[0])) {
                 this.duplicatedData.add(row);
-            }
-            else {
+            } else {
                 this.uniqueData.add(row);
                 uniqueData.add(row[0]);
             }
@@ -116,14 +114,12 @@ public class EmployeeCsvDataValidator extends AbstractDataValidator implements C
         this.missingValuesData = new ArrayList<>();
         String[][] data = this.getData();
         this.missingValuesData.add(data[0]);
-        for(int i = 0; i < data.length; i++){
-            String[] row = data[i];
-            if(row.length != 10){
+        for (String[] row : data) {
+            if (row.length != 10) {
                 this.missingValuesData.add(row);
-            }
-            else{
-                for(int j = 0; j < row.length; j++){
-                    if (row[j] == ""){
+            } else {
+                for (String s : row) {
+                    if (Objects.equals(s, "")) {
                         this.missingValuesData.add(row);
                     }
                 }
