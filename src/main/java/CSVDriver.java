@@ -42,7 +42,7 @@ public class CSVDriver {
         ArrayList<Employee> employeeRecords = new RecordsToEmployee(sqlReadyRecords).getEmployeeArrayListFunctional();
 
 
-        employeeDB employeeDb = new employeeDB();
+        EmployeeDB employeeDb = new EmployeeDB();
 
         System.out.println("");
         System.out.println("============ Drop Table if nessessary ===============");
