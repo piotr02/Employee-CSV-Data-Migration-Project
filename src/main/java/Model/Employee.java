@@ -1,11 +1,12 @@
 package model;
 
-//import Model.ConnectionFactory;
+import model.ConnectionFactory;
 
 import java.io.IOException;
 import java.sql.*;
 
 public class Employee {
+
 
     public int employer_ID;
     public String prefix;

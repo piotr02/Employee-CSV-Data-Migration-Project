@@ -8,14 +8,35 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 
 
-public class EmployeeCsvDataValidatorNew {
 
-//    @Override
-//    public String validate() {
-//        return null;
-//    }
+public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implements CSVTool{
+
+    public EmployeeCsvDataValidatorNew() {
+
+
+        System.out.println();
+        System.out.println("========== Get File ==========");
+        System.out.println();
+        String filename = "EmployeeRecords.csv";
+        System.out.println(filename);
+        System.out.println();
+
+        System.out.println("=====   Validate CSV   ========");
+        System.out.println();
+
+
+
+
+
+    }
+
+    @Override
+    public String validate() {
+        return null;
+    }
 
     public enum Field{
         Id(0),
@@ -181,4 +202,46 @@ public class EmployeeCsvDataValidatorNew {
         return uniqueCleanRecords;
     }
 
+
+    public ArrayList<String[]> getUniqueCleanSqlReadyRecords() {
+        return uniqueCleanSqlReadyRecords;
+    }
+
+/*
+    public void setUniqueAndDuplicate(){
+        this.uniqueData = new ArrayList<>();
+        this.duplicatedData = new ArrayList<>();
+        String[][] data = this.getData();
+        this.duplicatedData.add(data[0]);
+        HashSet<String> uniqueData = new HashSet<>();
+        for (String[] row : data) {
+            if (uniqueData.contains(row[0])) {
+                this.duplicatedData.add(row);
+            } else {
+                this.uniqueData.add(row);
+                uniqueData.add(row[0]);
+            }
+        }
+    }
+
+    /**
+     * Checks records for missing values and adds them to an array list
+     */
+    public void setMissingValuesData(){
+        this.missingValuesData = new ArrayList<>();
+        String[][] data = this.getData();
+        this.missingValuesData.add(data[0]);
+        for (String[] row : data) {
+            if (row.length != 10) {
+                this.missingValuesData.add(row);
+            } else {
+                for (String s : row) {
+                    if (Objects.equals(s, "")) {
+                        this.missingValuesData.add(row);
+                    }
+                }
+            }
+        }
+    }
+*/
 }
