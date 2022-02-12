@@ -7,6 +7,7 @@ public class EmployeeDB {
     public static void main(String[] args) {
 
         createDatabase();
+
         Date dob = new Date(02 / 04 / 1998);
         Date join = new Date(03 / 07 / 2003);
         insertEmployee(123, "Mr", "Bob", 'F', "Smith", 'M',
@@ -54,7 +55,6 @@ public class EmployeeDB {
         try {
             Connection connection = ConnectionFactory.getConnection();
             statement = connection.createStatement();
-            statement.execute("USE EmployeeCSV");
             rs = statement.executeQuery("SELECT * FROM Employee");
             while (rs.next()) { // Whilst there is a next element in the collection, the loop will keep running.
                 System.out.println(rs.getString("first_name") + " " + rs.getString("last_name"));
@@ -77,11 +77,8 @@ public class EmployeeDB {
                                        String lastName, char gender, String email, Date dateOfBirth, Date dateOfJoining, int salary) {
 
         PreparedStatement preparedStatement = null;
-        Statement statement = null;
         try {
             Connection connection = ConnectionFactory.getConnection();
-            statement = connection.createStatement();
-            statement.execute("USE EmployeeCSV");
             preparedStatement = connection.prepareStatement("INSERT INTO Employee (Emp_ID, Name_Prefix, First_Name, Middle_Initial, Last_Name, Gender, Email, Date_Of_Birth, Date_Of_Joining, Salary) VALUES (?,?,?,?,?,?,?,?,?,?)");
             preparedStatement.setString(1, ""+employeeId);
             preparedStatement.setString(2, namePrefix);

@@ -11,7 +11,7 @@ public class RecordsToEmployee {
         this.sqlReadyRecords = sqlReadyRecords;
     }
 
-    ArrayList<Employee> getEmployeeArrayListImperative(){
+    public ArrayList<Employee> getEmployeeArrayListImperative(){
         ArrayList<Employee> employeeArrayList = new ArrayList<>();
         for (String[] record : this.sqlReadyRecords) {
             Employee employee = new Employee();
@@ -30,7 +30,7 @@ public class RecordsToEmployee {
         return  employeeArrayList;
     }
 
-    ArrayList<Employee> getEmployeeArrayListFunctional(){
+    public ArrayList<Employee> getEmployeeArrayListFunctional(){
         List<Employee> employeeList = this.sqlReadyRecords.stream().map(record ->{
             Employee employee = new Employee();
             employee.employer_ID = Integer.parseInt(record[0]);
