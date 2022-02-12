@@ -1,5 +1,6 @@
 package model;
-
+import controller.CSVController;
+import view.CSVView;
 import model.CSVReader;
 import model.EmployeeCsvDataValidator;
 import org.junit.jupiter.api.*;
@@ -22,9 +23,11 @@ public class CSVShould {
     }
 
 
+
     @Test
     @DisplayName("When the program is run, the collection should be populated with an object.")
     public void recordGetsAddedToCollection() {
+        new ReaderFactory();
         CSVReader testReader = new CSVReader();
         readCsvFile("EmployeeRecords.csv");
         String stringTest = CSVReader.readCsvFile("authors.csv").toString();
@@ -34,7 +37,7 @@ public class CSVShould {
     @Test
     @DisplayName("When the program is run, corrupt data should be read and populate a seperate collection.")
     public void corruptRecordGetsAddedToDifferentCollection() {
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("EmployeeRecords.csv"));
         dataValidator.splitData();
         ArrayList<String[]> corruptedData =  dataValidator.getCorrupted();
@@ -44,7 +47,7 @@ public class CSVShould {
     @Test
     @DisplayName("When the program is run, unique records should be added to a separate collection.")
     public void uniqueRecordGetsAddedToDifferentCollection(){
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
         dataValidator.setUniqueAndDuplicate();
         assertNotNull(dataValidator.getUniqueData());
@@ -53,7 +56,7 @@ public class CSVShould {
     @Test
     @DisplayName("When the program is run, duplicated records should be added to a separate collection.")
     public void duplicatedRecordGetsAddedToDifferentCollection(){
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
         dataValidator.setUniqueAndDuplicate();
         assertNotNull(dataValidator.getDuplicatedData());
@@ -62,7 +65,7 @@ public class CSVShould {
     @Test
     @DisplayName("When the program is run, missingValue records should be added to a separate collection.")
     public void missingValuesRecordGetsAddedToDifferentCollection(){
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
         dataValidator.setMissingValuesData();
         assertNotNull(dataValidator.getMissingValuesData());
@@ -71,8 +74,8 @@ public class CSVShould {
     @Test
     @DisplayName("When there is corrupted data in the file, only valid data should be in the valid data collection.")
     public void returnValidRecords() {
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
-        EmployeeCsvDataValidator test = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
+        EmployeeCsvDataValidatorNew test = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
         test.setData(CSVReader.readCsvFile("TestValidData.csv"));
         dataValidator.splitData();
@@ -91,8 +94,8 @@ public class CSVShould {
     @Test
     @DisplayName("When there is corrupted data in the file, only corrupted data should be in the corrupted data collection.")
     public void returnCorruptedRecords() {
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
-        EmployeeCsvDataValidator test = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
+        EmployeeCsvDataValidatorNew test = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
         test.setData(CSVReader.readCsvFile("TestCorruptedData.csv"));
         dataValidator.splitData();
@@ -110,8 +113,8 @@ public class CSVShould {
     @Test
     @DisplayName("When there is unique data in the file, only unique data should be in the unique data collection.")
     public void returnUniqueRecords() {
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
-        EmployeeCsvDataValidator test = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
+        EmployeeCsvDataValidatorNew test = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
         test.setData(CSVReader.readCsvFile("TestUniqueData.csv"));
         dataValidator.setUniqueAndDuplicate();
@@ -129,8 +132,8 @@ public class CSVShould {
     @Test
     @DisplayName("When there is duplicated data in the file, only duplicated data should be in the duplicated data collection.")
     public void returnDuplicatedRecords() {
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
-        EmployeeCsvDataValidator test = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
+        EmployeeCsvDataValidatorNew test = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
         test.setData(CSVReader.readCsvFile("TestDuplicatedData.csv"));
         dataValidator.setUniqueAndDuplicate();
@@ -148,8 +151,8 @@ public class CSVShould {
     @Test
     @DisplayName("When there is data with missing values in the file, only that data should be in the missing values data collection.")
     public void returnMissingValuesRecords() {
-        EmployeeCsvDataValidator dataValidator = new EmployeeCsvDataValidator();
-        EmployeeCsvDataValidator test = new EmployeeCsvDataValidator();
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew();
+        EmployeeCsvDataValidatorNew test = new EmployeeCsvDataValidatorNew();
         dataValidator.setData(CSVReader.readCsvFile("TestEmployeeRecords.csv"));
         test.setData(CSVReader.readCsvFile("TestMissingValuesData.csv"));
         dataValidator.setMissingValuesData();
