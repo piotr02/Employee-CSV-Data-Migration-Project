@@ -15,6 +15,21 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
 
     public EmployeeCsvDataValidatorNew() {
 
+
+        System.out.println();
+        System.out.println("========== Get File ==========");
+        System.out.println();
+        String filename = "EmployeeRecords.csv";
+        System.out.println(filename);
+        System.out.println();
+
+        System.out.println("=====   Validate CSV   ========");
+        System.out.println();
+
+
+
+
+
     }
 
     @Override
