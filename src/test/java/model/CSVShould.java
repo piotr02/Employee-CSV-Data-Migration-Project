@@ -2,7 +2,7 @@ package model;
 import controller.CSVController;
 import view.CSVView;
 import model.CSVReader;
-import model.EmployeeCsvDataValidator;
+import model.EmployeeCsvDataValidatorNew;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class CSVShould {
+
 
     @Test
     @DisplayName("Upon running the CSV Reader, an input should be returned and the file should successfully be read.")
@@ -87,9 +88,6 @@ public class CSVShould {
         for(String[] record: dataValidator.getValid()){
             actual.add(record);
         }
-
-        assertEquals(Arrays.deepToString(expected.toArray()), Arrays.deepToString(actual.toArray()));
-    }
 
     @Test
     @DisplayName("When there is corrupted data in the file, only corrupted data should be in the corrupted data collection.")

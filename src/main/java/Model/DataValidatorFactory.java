@@ -1,5 +1,6 @@
 package model;
 
+
 public class DataValidatorFactory extends CSVToolFactory{
 
     @Override
