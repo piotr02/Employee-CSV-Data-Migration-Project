@@ -15,8 +15,8 @@ import java.util.Objects;
 public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implements CSVTool{
 
     public EmployeeCsvDataValidatorNew() {
-
-
+        System.out.println("Invalid constructor");
+        /*
         System.out.println();
         System.out.println("========== Get File ==========");
         System.out.println();
@@ -29,7 +29,7 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
 
 
 
-
+        */
 
     }
 
@@ -61,8 +61,6 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
     }
     private ArrayList<String[]> cleanedData;
 
-    //uniqueCleanRecords Should be added to the database
-//    private ArrayList<String[]> uniqueCleanSqlReadyRecords;
     private ArrayList<String[]> uniqueCleanRecords;
     private ArrayList<String[]> recordsWithMissingFields;
     private ArrayList<String[]> recordsWithDuplicatedId;
@@ -203,11 +201,9 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
     }
 
 
-    public ArrayList<String[]> getUniqueCleanSqlReadyRecords() {
-        return uniqueCleanSqlReadyRecords;
-    }
 
 /*
+    //Setters not allowed
     public void setUniqueAndDuplicate(){
         this.uniqueData = new ArrayList<>();
         this.duplicatedData = new ArrayList<>();
@@ -224,9 +220,8 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
         }
     }
 
-    /**
-     * Checks records for missing values and adds them to an array list
-     */
+
+    //Setters not allowed
     public void setMissingValuesData(){
         this.missingValuesData = new ArrayList<>();
         String[][] data = this.getData();
