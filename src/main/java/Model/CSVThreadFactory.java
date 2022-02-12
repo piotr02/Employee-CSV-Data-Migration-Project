@@ -68,7 +68,7 @@ public class CSVThreadFactory {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        threadFactory.createThreads(8, inFile);
+        threadFactory.createThreads(16, inFile);
         double start = System.currentTimeMillis();
         threadFactory.run();
         double end = System.currentTimeMillis();
