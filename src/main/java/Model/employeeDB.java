@@ -2,17 +2,10 @@ package model;
 
 import java.io.IOException;
 import java.sql.*;
-import java.text.DateFormat;
 
-public class employeeDB {
+public class EmployeeDB {
     public static void main(String[] args) {
 
-//
-//        useStatement();
-//
-//        usePreparedStatement();
-//
-//        insertPrepared();
         createDatabase();
         Date dob = new Date(02 / 04 / 1998);
         Date join = new Date(03 / 07 / 2003);
@@ -31,8 +24,6 @@ public class employeeDB {
             statement.execute("DROP DATABASE IF EXISTS EmployeeCSV");
             statement.execute("CREATE DATABASE EmployeeCSV");
             statement.execute("USE EmployeeCSV");
-            //statement.execute("CREATE TABLE Employee(employee integer)");
-            //statement.execute("CREATE TABLE Employee (int employeeId, varchar(10) namePrefix, varchar(100) firstName, char middleInitial, varchar(100) lastName, char gender, varchar(100) email, Date dateOfBirth, Date dateOfJoining, int salary)");
             statement.execute("CREATE TABLE IF NOT EXISTS Employee (" +
                     "Emp_ID integer PRIMARY KEY not null," +
                     "Name_Prefix varchar(10) not null," +
@@ -44,7 +35,6 @@ public class employeeDB {
                     "Date_Of_Birth Date not null," +
                     "Date_Of_Joining Date not null," +
                     "Salary integer not null)");
-
             statement.close();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -55,7 +45,6 @@ public class employeeDB {
                 e.printStackTrace();
             }
         }
-
     }
 
     private static void useStatement() {
@@ -117,69 +106,65 @@ public class employeeDB {
                 e.printStackTrace();
             }
         }
-
-
-
-
     }
 
 
-    private static void insertPrepared() {
-
-        PreparedStatement preparedStatement = null;
-        try {
-            Connection connection = ConnectionFactory.getConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO Employee (idemployee_id,first_name, last_name,email,date,time) VALUES (?,?,?,?,?,?)");
-            preparedStatement.setString(1, "4");
-            preparedStatement.setString(2, "Aiden");
-            preparedStatement.setString(3, "Sykes");
-            preparedStatement.setString(4, "aiden.sykes@gmail.com");
-            preparedStatement.setString(5, "2021/01/11");
-            preparedStatement.setString(6, "10.00.00");
-            int rowsAffected = preparedStatement.executeUpdate();
-            System.out.println(rowsAffected);
-            preparedStatement.close();
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                ConnectionFactory.closeConnection();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
-
-    }
-
-    private static void usePreparedStatement() {
-
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
-        try {
-            Connection connection = ConnectionFactory.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM Employee WHERE last_name=?");
-            preparedStatement.setString(1, "dhamale"); // Placeholders
-            rs = preparedStatement.executeQuery();
-            while (rs.next()) { // Whilst there is a next element in the collection, the loop will keep running.
-                System.out.println(rs.getString("first_name") + " " + rs.getString("last_name"));
-            }
-            rs.close();
-            preparedStatement.close();
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                ConnectionFactory.closeConnection();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
-
-    }
+//    private static void insertPrepared() {
+//
+//        PreparedStatement preparedStatement = null;
+//        try {
+//            Connection connection = ConnectionFactory.getConnection();
+//            preparedStatement = connection.prepareStatement("INSERT INTO Employee (idemployee_id,first_name, last_name,email,date,time) VALUES (?,?,?,?,?,?)");
+//            preparedStatement.setString(1, "4");
+//            preparedStatement.setString(2, "Aiden");
+//            preparedStatement.setString(3, "Sykes");
+//            preparedStatement.setString(4, "aiden.sykes@gmail.com");
+//            preparedStatement.setString(5, "2021/01/11");
+//            preparedStatement.setString(6, "10.00.00");
+//            int rowsAffected = preparedStatement.executeUpdate();
+//            System.out.println(rowsAffected);
+//            preparedStatement.close();
+//        } catch (SQLException | IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                ConnectionFactory.closeConnection();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//
+//
+//
+//    }
+//
+//    private static void usePreparedStatement() {
+//
+//        PreparedStatement preparedStatement = null;
+//        ResultSet rs = null;
+//        try {
+//            Connection connection = ConnectionFactory.getConnection();
+//            preparedStatement = connection.prepareStatement("SELECT * FROM Employee WHERE last_name=?");
+//            preparedStatement.setString(1, "dhamale"); // Placeholders
+//            rs = preparedStatement.executeQuery();
+//            while (rs.next()) { // Whilst there is a next element in the collection, the loop will keep running.
+//                System.out.println(rs.getString("first_name") + " " + rs.getString("last_name"));
+//            }
+//            rs.close();
+//            preparedStatement.close();
+//        } catch (SQLException | IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                ConnectionFactory.closeConnection();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//
+//
+//
+//    }
 }
