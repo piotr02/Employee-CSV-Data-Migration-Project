@@ -1,34 +1,18 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CSVThreadFactory {
     private ArrayList<CSVThread> threadList = new ArrayList<>();
-    private ArrayList<String[]> list = new ArrayList<>();
-
-    /**
-     * Returns the list populated by threads.
-     * @return list populated by threads
-     */
-    //!!!!!!!!!!
-    // ONLY BECAUSE DATABASE METHODS DON'T WORK NOW
-    //!!!!!!!!!!
-    public ArrayList<String[]> getList() {
-        return list;
-    }
 
     /**
      * Creates a list of threads based on desired number of threads.
      * @param numberOfThreads desired number of threads
-     * @param inFile file to read data from
+     * @param employeeList list of employees
      */
-    public void createThreads(int numberOfThreads, BufferedReader inFile){
+    public void createThreads(int numberOfThreads, ArrayList<Employee> employeeList){
         for(int i = 0; i < numberOfThreads; i++){
-            this.threadList.add(new CSVThread("thread " + i, list, inFile));
+            this.threadList.add(new CSVThread("thread " + i, employeeList));
         }
     }
 
@@ -62,21 +46,18 @@ public class CSVThreadFactory {
     //!!!!!!!!!!
     public static void main(String[] args) {
         CSVThreadFactory threadFactory = new CSVThreadFactory();
-        BufferedReader inFile = null;
-        try {
-            inFile = new BufferedReader(new FileReader("EmployeeRecordsLarge.csv"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        threadFactory.createThreads(16, inFile);
+
+        String[][] csvData = CSVReader.readCsvFile("EmployeeRecords.csv");
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew(csvData);
+        ArrayList<String[]> sqlReadyRecords = new EmployeeDateConversion(dataValidator.getUniqueCleanRecords()).toSqlReadyRecords();
+        ArrayList<Employee> employeeRecords = new RecordsToEmployee(sqlReadyRecords).getEmployeeArrayListFunctional();
+
+        EmployeeDB.createDatabase();
+        threadFactory.createThreads(16, employeeRecords);
         double start = System.currentTimeMillis();
         threadFactory.run();
         double end = System.currentTimeMillis();
 
-//        for(String[] record: threadFactory.getList()){
-//            System.out.println(Arrays.deepToString(record));
-//        }
-        System.out.println((threadFactory.getList().size()-1) + " records");
         System.out.println("Process took: " + ((end - start)/1000) + " seconds.");
     }
 }
