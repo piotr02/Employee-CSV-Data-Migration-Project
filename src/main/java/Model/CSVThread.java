@@ -15,10 +15,8 @@ public class CSVThread extends Thread{
      * Populates the database with values from the list.
      */
     public void populateDatabase(){
-        Integer resource = 1;
-        for(int i = 0; i < employeeList.size(); i++) {
-            for (Employee employee : employeeList) {
-                synchronized (resource) {
+            for(Employee employee : employeeList) {
+                synchronized (this) {
                     EmployeeDB.insertEmployee(employee.employer_ID,
                              employee.prefix,
                              employee.firstName,
@@ -32,7 +30,6 @@ public class CSVThread extends Thread{
                 }
             }
             System.out.println(name + " finished.");
-        }
     }
 
     /**
