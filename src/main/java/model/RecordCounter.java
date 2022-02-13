@@ -8,22 +8,47 @@ public class RecordCounter {
     }
 
     public int countUniqueClean(ArrayList<String[]> uniqueRecords){
-        return uniqueRecords.size();
+        if (uniqueRecords == null){
+            return 0;
+        }
+        else {
+            return uniqueRecords.size();
+        }
     }
 
     public int countDuplicated(ArrayList<String[]> duplicatedRecords){
-        return duplicatedRecords.size();
+        if (duplicatedRecords == null){
+            return 0;
+        }
+        else {
+            return duplicatedRecords.size();
+        }
     }
 
     public int countMissingValuesRecords(ArrayList<String[]> missingValuesData){
-        return missingValuesData.size();
+        if (missingValuesData == null){
+            return 0;
+        }
+        else {
+            return missingValuesData.size();
+        }
     }
 
-    public int countClean(ArrayList<String[]> validData){
-        return validData.size();
+    public int countClean(ArrayList<String[]> cleanData){
+        if (cleanData == null){
+            return 0;
+        }
+        else {
+            return cleanData.size();
+        }
     }
 
     public int countIncorrectValuesRecords(ArrayList<String[]> incorrectValues){
-        return incorrectValues.size();
+        if (incorrectValues == null){
+            return 0;
+        }
+        else {
+            return incorrectValues.size();
+        }
     }
 }

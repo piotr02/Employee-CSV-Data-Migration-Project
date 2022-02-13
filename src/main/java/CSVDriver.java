@@ -5,6 +5,7 @@ import view.CSVView;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static java.lang.System.console;
 import static java.lang.System.currentTimeMillis;
 
 public class CSVDriver {
@@ -115,12 +116,20 @@ public class CSVDriver {
 
         CSVView view = new CSVView();
         RecordCounter counter = new RecordCounter();
-        ;
+
 
         //System.out.println(view.getValid(counter.countClean(dataValidator.getUniqueCleanRecords())));
 
         //EmployeeDB.selectEmployee(111800);
         //EmployeeDB.selectAllRecords();
+
+        int cleanCount = counter.countClean(dataValidator.getCleanedData());
+        int uniqueCleanCount = counter.countUniqueClean(dataValidator.getUniqueCleanRecords());
+        int missingCount = counter.countMissingValuesRecords(dataValidator.getMissingValuesData());
+        int duplicatedCount = counter.countDuplicated(dataValidator.getRecordsWithDuplicatedId());
+        int incorrectCount = counter.countIncorrectValuesRecords(dataValidator.getRecordsWithIncorrectFields());
+        view.printResult(cleanCount, uniqueCleanCount, missingCount, duplicatedCount, incorrectCount);
+
     }
 
 
