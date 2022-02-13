@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static view.CSVView.CSV.READ;
-import static view.CSVView.CSV.VALIDATE;
+import static view.CSVView.CSV.*;
 
 public class CSVView {
     public enum CSV {
-        READ("read"), VALIDATE("validate");
+        READ("read"), VALIDATE("validate"), WRITE("write");
 
         private final String choice;
 
@@ -32,7 +31,7 @@ public class CSVView {
             Scanner scanner = new Scanner(System.in);
             selectCSV = scanner.next().toLowerCase();
 
-            if (selectCSV.equals(READ.choice) || selectCSV.equals(VALIDATE.choice)) {
+            if (selectCSV.equals(READ.choice) || selectCSV.equals(VALIDATE.choice)|| selectCSV.equals(WRITE.choice)) {
                 validEnum = true;
 
             }
