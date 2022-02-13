@@ -11,6 +11,8 @@
 * Create database  from JAVA to Mysql
 ![Main Method](CreateDatabase.png)
 * Phase 3 : Implementing multiple threads to write the data and comparing the execution time. 
+* Create Database From Java To SQL
+ ![Create Database](CreateDatabase.png)
 * Phase 4 : Modified code to make use of functional programming concepts – lambdas and streams.
 
 
