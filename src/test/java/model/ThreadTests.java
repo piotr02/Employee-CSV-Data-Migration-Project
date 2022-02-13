@@ -39,8 +39,8 @@ public class ThreadTests {
 
         Date dob = new Date(02 / 04 / 1998);
         Date join = new Date(03 / 07 / 2003);
-        insertEmployee(123, "Mr", "Bob", 'F', "Smith", 'M',
-                "bob@gmail.com", dob, join, 120000);
+//        EmployeeDB.insertEmployee(123, "Mr", "Bob", 'F', "Smith", 'M',
+//                "bob@gmail.com", dob, join, 120000);
 
         selectAllRecords();
 
