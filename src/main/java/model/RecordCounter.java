@@ -7,7 +7,7 @@ public class RecordCounter {
         return records.length;
     }
 
-    public int countUnique(ArrayList<String[]> uniqueRecords){
+    public int countUniqueClean(ArrayList<String[]> uniqueRecords){
         return uniqueRecords.size();
     }
 
@@ -19,13 +19,11 @@ public class RecordCounter {
         return missingValuesData.size();
     }
 
-    public int countValid(ArrayList<String[]> validData){
+    public int countClean(ArrayList<String[]> validData){
         return validData.size();
     }
 
-    public int countCorrupted(ArrayList<String[]> corruptedData){
-        return corruptedData.size();
+    public int countIncorrectValuesRecords(ArrayList<String[]> incorrectValues){
+        return incorrectValues.size();
     }
 }
-
-// Add me

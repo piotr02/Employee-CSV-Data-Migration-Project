@@ -22,7 +22,7 @@ public class CSVDriver {
         System.out.println("");
 
 
-        String[][] csvData = CSVReader.readCsvFile("EmployeeRecordsLarge.csv");
+        String[][] csvData = CSVReader.readCsvFile("EmployeeRecords.csv");
 
         System.out.println("");
         System.out.println("============ Seperate Corrupt ===============");
@@ -65,7 +65,13 @@ public class CSVDriver {
 
 
         CSVView view = new CSVView();
-        //RecordCounter counter = new RecordCounter();
+        RecordCounter counter = new RecordCounter();
+        ;
+
+        //System.out.println(view.getValid(counter.countClean(dataValidator.getUniqueCleanRecords())));
+
+        //EmployeeDB.selectEmployee(111800);
+        EmployeeDB.selectAllRecords();
     }
 
 

@@ -5,19 +5,6 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class EmployeeDB {
-    public static void main(String[] args) {
-
-        createDatabase();
-
-        Date dob = new Date(02 / 04 / 1998);
-        Date join = new Date(03 / 07 / 2003);
-        insertEmployee(123, "Mr", "Bob", 'F', "Smith", 'M',
-                "bob@gmail.com", dob, join, 120000);
-
-        selectAllRecords();
-
-    }
-
     public static void createDatabase(){
         Statement statement = null;
         try {
@@ -57,7 +44,51 @@ public class EmployeeDB {
             statement = connection.createStatement();
             rs = statement.executeQuery("SELECT * FROM Employee;");
             while (rs.next()) { // Whilst there is a next element in the collection, the loop will keep running.
-                System.out.println(rs.getString("first_name") + " " + rs.getString("last_name"));
+                System.out.println("Emp_ID: " + rs.getString(1) + ", Name_Prefix: "
+                        + rs.getString(2) + ", First_Name: "
+                        + rs.getString(3) + ", Middle_Initial: "
+                        + rs.getString(4) + ", Last_Name: "
+                        + rs.getString(5) + ", Gender: "
+                        + rs.getString(6) + ", Email: "
+                        + rs.getString(7) + ", Date_Of_Birth: "
+                        + rs.getString(8) + ", Date_Of_Joining: "
+                        + rs.getString(9) + ", Salary: "
+                        + rs.getString(10));
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                ConnectionFactory.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void selectEmployee(int employeeid) {
+        Statement statement = null;
+        ResultSet rs = null;
+        try {
+            Connection connection = ConnectionFactory.getConnection();
+            statement = connection.createStatement();
+            rs = statement.executeQuery("SELECT * FROM Employee WHERE Emp_ID =" +employeeid+";");
+            if (rs.next()) { // Whilst there is a next element in the collection, the loop will keep running.
+                System.out.println("Emp_ID: " + rs.getString(1) + ", Name_Prefix: "
+                        + rs.getString(2) + ", First_Name: "
+                        + rs.getString(3) + ", Middle_Initial: "
+                        + rs.getString(4) + ", Last_Name: "
+                        + rs.getString(5) + ", Gender: "
+                        + rs.getString(6) + ", Email: "
+                        + rs.getString(7) + ", Date_Of_Birth: "
+                        + rs.getString(8) + ", Date_Of_Joining: "
+                        + rs.getString(9) + ", Salary: "
+                        + rs.getString(10));
+            }
+            else{
+                System.out.println("Employee does not exist.");
             }
             rs.close();
             statement.close();
@@ -104,39 +135,39 @@ public class EmployeeDB {
         }
     }
 
-    public static void insertEmployee(int employeeId, String namePrefix, String firstName, char middleInitial,
-                                       String lastName, char gender, String email, Date dateOfBirth, Date dateOfJoining, int salary) {
-
-        PreparedStatement preparedStatement = null;
-        Statement statement = null;
-        try {
-            Connection connection = ConnectionFactory.getConnection();
-            statement = connection.createStatement();
-            statement.execute("USE EmployeeCSV");
-            preparedStatement = connection.prepareStatement("INSERT INTO Employee (Emp_ID, Name_Prefix, First_Name, Middle_Initial, Last_Name, Gender, Email, Date_Of_Birth, Date_Of_Joining, Salary) VALUES (?,?,?,?,?,?,?,?,?,?)");
-            preparedStatement.setString(1, ""+employeeId);
-            preparedStatement.setString(2, namePrefix);
-            preparedStatement.setString(3, firstName);
-            preparedStatement.setString(4, ""+middleInitial);
-            preparedStatement.setString(5, lastName);
-            preparedStatement.setString(6, ""+gender);
-            preparedStatement.setString(7, email);
-            preparedStatement.setString(8, ""+dateOfBirth);
-            preparedStatement.setString(9, ""+dateOfJoining);
-            preparedStatement.setString(10, ""+salary);
-
-            int rowsAffected = preparedStatement.executeUpdate();
-
-            System.out.println(rowsAffected);
-            preparedStatement.close();
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                ConnectionFactory.closeConnection();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    public static void insertEmployee(int employeeId, String namePrefix, String firstName, char middleInitial,
+//                                       String lastName, char gender, String email, Date dateOfBirth, Date dateOfJoining, int salary) {
+//
+//        PreparedStatement preparedStatement = null;
+//        Statement statement = null;
+//        try {
+//            Connection connection = ConnectionFactory.getConnection();
+//            statement = connection.createStatement();
+//            statement.execute("USE EmployeeCSV");
+//            preparedStatement = connection.prepareStatement("INSERT INTO Employee (Emp_ID, Name_Prefix, First_Name, Middle_Initial, Last_Name, Gender, Email, Date_Of_Birth, Date_Of_Joining, Salary) VALUES (?,?,?,?,?,?,?,?,?,?)");
+//            preparedStatement.setString(1, ""+employeeId);
+//            preparedStatement.setString(2, namePrefix);
+//            preparedStatement.setString(3, firstName);
+//            preparedStatement.setString(4, ""+middleInitial);
+//            preparedStatement.setString(5, lastName);
+//            preparedStatement.setString(6, ""+gender);
+//            preparedStatement.setString(7, email);
+//            preparedStatement.setString(8, ""+dateOfBirth);
+//            preparedStatement.setString(9, ""+dateOfJoining);
+//            preparedStatement.setString(10, ""+salary);
+//
+//            int rowsAffected = preparedStatement.executeUpdate();
+//
+//            System.out.println(rowsAffected);
+//            preparedStatement.close();
+//        } catch (SQLException | IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                ConnectionFactory.closeConnection();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }
