@@ -148,11 +148,12 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
         boolean isValid = new IntegerValidator().validate(id);
         isValid &= new StringLengthValidator(10).validate(prefix);
         isValid &= new StringEndsWithValidator(".").validate(prefix);
-        isValid &= new StringLengthValidator(50).validate(firstName);
+        isValid &= new StringLengthValidator(100).validate(firstName);
         isValid &= new StringLengthValidator(1).validate(middleInitial);
-        isValid &= new StringLengthValidator(50).validate(lastName);
+        isValid &= new StringLengthValidator(100).validate(lastName);
         isValid &= new GenderValidator().validate(gender);
         isValid &= new EmailValidator().validate(email);
+        isValid &= new StringLengthValidator(100).validate(email);
         isValid &= new DateValidator("MM/dd/yyyy").validate(dateOfBirth);
         isValid &= new DateValidator("MM/dd/yyyy").validate(dateOfJoining);
         isValid &= new IntegerValidator().validate(salary);

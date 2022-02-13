@@ -29,6 +29,7 @@ public class EmployeeCsvDataValidatorNewTest {
 
 
 
+
     }
 
     @Test
@@ -41,7 +42,5 @@ public class EmployeeCsvDataValidatorNewTest {
         Assertions.assertEquals(0, validator.getRecordsWithIncorrectFields().size());
         Assertions.assertEquals(2, validator.getRecordsWithDuplicatedId().size());
         Assertions.assertEquals(6, validator.getUniqueCleanRecords().size());
-
-
     }
 }

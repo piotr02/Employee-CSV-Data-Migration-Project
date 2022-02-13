@@ -36,20 +36,18 @@ public class EmployeeDataInsertThread implements Runnable {
             preparedStatement = connection.prepareStatement("INSERT INTO Employee (Emp_ID, Name_Prefix, First_Name, Middle_Initial, Last_Name, Gender, Email, Date_Of_Birth, Date_Of_Joining, Salary) VALUES (?,?,?,?,?,?,?,?,?,?)");
             while (currentIndex < employeeCollection.size()){
                 Employee employee = this.employeeCollection.get(currentIndex);
-                preparedStatement.setString(1, ""+employee.employer_ID);
+                preparedStatement.setInt(1, employee.employer_ID);
                 preparedStatement.setString(2, employee.prefix);
                 preparedStatement.setString(3, employee.firstName);
-                preparedStatement.setString(4, ""+employee.middleInitial);
+                preparedStatement.setString(4, String.valueOf(employee.middleInitial));
                 preparedStatement.setString(5, employee.lastName);
-                preparedStatement.setString(6, ""+employee.gender);
+                preparedStatement.setString(6, String.valueOf(employee.gender));
                 preparedStatement.setString(7, employee.email);
-                preparedStatement.setString(8, ""+employee.dateOfBirth);
-                preparedStatement.setString(9, ""+employee.dateOfJoining);
-                preparedStatement.setString(10, ""+employee.salary);
-                //int rowsAffected =
+                preparedStatement.setDate(8, employee.dateOfBirth);
+                preparedStatement.setDate(9, employee.dateOfJoining);
+                preparedStatement.setInt(10, employee.salary);
                 preparedStatement.executeUpdate();
                 currentIndex += this.stride;
-                //this.rowsAffected += rowsAffected;
             }
             preparedStatement.close();
         } catch (SQLException | IOException e) {
