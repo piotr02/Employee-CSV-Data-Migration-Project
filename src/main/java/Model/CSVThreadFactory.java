@@ -47,13 +47,13 @@ public class CSVThreadFactory {
     public static void main(String[] args) {
         CSVThreadFactory threadFactory = new CSVThreadFactory();
 
-        String[][] csvData = CSVReader.readCsvFile("EmployeeRecords.csv");
+        String[][] csvData = CSVReader.readCsvFile("TestEmployeeRecords.csv");
         EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew(csvData);
         ArrayList<String[]> sqlReadyRecords = new EmployeeDateConversion(dataValidator.getUniqueCleanRecords()).toSqlReadyRecords();
         ArrayList<Employee> employeeRecords = new RecordsToEmployee(sqlReadyRecords).getEmployeeArrayListFunctional();
 
         EmployeeDB.createDatabase();
-        threadFactory.createThreads(16, employeeRecords);
+        threadFactory.createThreads(1, employeeRecords);
         double start = System.currentTimeMillis();
         threadFactory.run();
         double end = System.currentTimeMillis();

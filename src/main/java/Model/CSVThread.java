@@ -15,20 +15,23 @@ public class CSVThread extends Thread{
      * Populates the database with values from the list.
      */
     public void populateDatabase(){
+        Integer resource = 1;
         for(int i = 0; i < employeeList.size(); i++) {
             for (Employee employee : employeeList) {
-               EmployeeDB.insertEmployee(employee.employer_ID,
-                        employee.prefix,
-                        employee.firstName,
-                        employee.middleInitial,
-                        employee.lastName,
-                        employee.gender,
-                        employee.email,
-                        employee.dateOfBirth,
-                        employee.dateOfJoining,
-                        employee.salary);
+                synchronized (resource) {
+                    EmployeeDB.insertEmployee(employee.employer_ID,
+                             employee.prefix,
+                             employee.firstName,
+                             employee.middleInitial,
+                             employee.lastName,
+                             employee.gender,
+                             employee.email,
+                             employee.dateOfBirth,
+                             employee.dateOfJoining,
+                             employee.salary);
+                }
             }
-            System.out.println(name + "finished.");
+            System.out.println(name + " finished.");
         }
     }
 
