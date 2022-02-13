@@ -17,7 +17,7 @@
              
 * Phase 2 : Used MySQL Database and create a connection and transefering dates from JAVA to SQL. 
 * Create Database
-              ![Create Database](CreateDatabse.png)
+              ![Create Database](CreateDatabase.png)
 * Phase 3 : Implementing multiple threads to write the data and comparing the execution time. 
 * Phase 4 : Modified code to make use of functional programming concepts – lambdas and streams.
 
