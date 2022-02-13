@@ -2,7 +2,10 @@
 import model.*;
 import view.CSVView;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static java.lang.System.nanoTime;
 
 public class CSVDriver {
 
@@ -19,7 +22,7 @@ public class CSVDriver {
         System.out.println("");
 
 
-        String[][] csvData = CSVReader.readCsvFile("EmployeeRecords.csv");
+        String[][] csvData = CSVReader.readCsvFile("EmployeeRecordsLarge.csv");
 
         System.out.println("");
         System.out.println("============ Seperate Corrupt ===============");
@@ -44,21 +47,28 @@ public class CSVDriver {
 
         EmployeeDB employeeDb = new EmployeeDB();
 
-        System.out.println("");
-        System.out.println("============ Drop Table if nessessary ===============");
-        System.out.println("");
 
-        System.out.println("");
-        System.out.println("============ Create table if exists ===============");
-        System.out.println("");
 
-        System.out.println("");
-        System.out.println("============ Use prepared statement to insert Employees===============");
-        System.out.println("");
 
-        System.out.println("");
-        System.out.println("============ Insert Each Employees to Database (With Multi Threading)===============");
-        System.out.println("");
+
+        EmployeeDB.selectAllRecords();
+
+        //Populate with 1 thread
+        EmployeeDB.createDatabase();
+        long startTime = nanoTime();
+        EmployeeDB.insertEmployeesThreaded(employeeRecords, 1);
+        long endTime = nanoTime();
+        System.out.println("With 1 theads it took: " + (endTime - startTime)  + "ns to write employees");
+
+
+        //Populate with 8 threads
+        EmployeeDB.createDatabase();
+        startTime = nanoTime();
+        EmployeeDB.insertEmployeesThreaded(employeeRecords, 4);
+        endTime = nanoTime();
+        System.out.println("With 8 theads it took: " + (endTime - startTime) + "ns to write employees");
+
+        EmployeeDB.selectAllRecords();
 
 
         CSVView view = new CSVView();
