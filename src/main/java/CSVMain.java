@@ -14,7 +14,7 @@ public class CSVMain {
         while (isRunning) {
 
             System.out.println("=== ======================================================= ===");
-            System.out.println("=== Available Commands: 'read', 'validate' ================ ===");
+            System.out.println("=== Available Commands: 'read', 'validate', 'write' ======= ===");
             System.out.println("=== ======================================================= ===");
 
             CSVView view = new CSVView();
