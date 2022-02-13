@@ -73,12 +73,12 @@ public class EmployeeDB {
     }
 
     public static void insertEmployeesThreaded(ArrayList<Employee> employees, int threadCount){
-        ArrayList<EmployeeDataInsertThread> employeeDataInsertThread = new ArrayList<>();
+        //ArrayList<EmployeeDataInsertThread> employeeDataInsertThread = new ArrayList<>();
         ArrayList<Thread> threads = new ArrayList<>();
         for(int i = 0; i < threadCount; i++){
-            EmployeeDataInsertThread employeeThread = new EmployeeDataInsertThread(employees, i, threadCount);
-            employeeDataInsertThread.add(employeeThread);
-            Thread thread = new Thread(employeeThread);
+            //EmployeeDataInsertThread employeeThread = ;
+            //employeeDataInsertThread.add(employeeThread);
+            Thread thread = new Thread(new EmployeeDataInsertThread(employees, i, threadCount));
             threads.add(thread);
         }
         for(int i = 0; i < threadCount; i++){
@@ -89,8 +89,8 @@ public class EmployeeDB {
             try {
 
                 threads.get(i).join();
-                int totalRowsEffected = 0;
-                totalRowsEffected += employeeDataInsertThread.get(i).getRowsAffected();
+                //int totalRowsEffected = 0;
+                //totalRowsEffected += employeeDataInsertThread.get(i).getRowsAffected();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -102,7 +102,6 @@ public class EmployeeDB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void insertEmployee(int employeeId, String namePrefix, String firstName, char middleInitial,
