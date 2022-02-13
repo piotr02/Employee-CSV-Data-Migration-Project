@@ -73,19 +73,25 @@ public class EmployeeDB {
     }
 
     public static void insertEmployeesThreaded(ArrayList<Employee> employees, int threadCount){
-        ArrayList<Thread> employeeInsertThreads = new ArrayList<>();
+        ArrayList<EmployeeDataInsertThread> employeeDataInsertThread = new ArrayList<>();
+        ArrayList<Thread> threads = new ArrayList<>();
         for(int i = 0; i < threadCount; i++){
-            Thread thread = new Thread(new EmployeeDataInsertThread(employees, i, threadCount));
-            employeeInsertThreads.add(thread);
+            EmployeeDataInsertThread employeeThread = new EmployeeDataInsertThread(employees, i, threadCount);
+            employeeDataInsertThread.add(employeeThread);
+            Thread thread = new Thread(employeeThread);
+            threads.add(thread);
         }
         for(int i = 0; i < threadCount; i++){
-            employeeInsertThreads.get(i).start();
+            threads.get(i).start();
         }
 
         for(int i = 0; i < threadCount; i++){
             try {
-                employeeInsertThreads.get(i).join();
-                System.out.println("thread " + i + " is finished \n");
+
+                threads.get(i).join();
+                int totalRowsEffected = 0;
+                totalRowsEffected += employeeDataInsertThread.get(i).getRowsAffected();
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -96,6 +102,7 @@ public class EmployeeDB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     public static void insertEmployee(int employeeId, String namePrefix, String firstName, char middleInitial,
@@ -120,6 +127,7 @@ public class EmployeeDB {
             preparedStatement.setString(10, ""+salary);
 
             int rowsAffected = preparedStatement.executeUpdate();
+
             System.out.println(rowsAffected);
             preparedStatement.close();
         } catch (SQLException | IOException e) {

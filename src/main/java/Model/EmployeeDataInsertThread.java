@@ -11,17 +11,21 @@ public class EmployeeDataInsertThread implements Runnable {
 
     private int startIndex;
     private int stride;
-    private int insertionCount;
+    private int rowsAffected;
     private ArrayList<Employee> employeeCollection;
     public EmployeeDataInsertThread(ArrayList<Employee> employeeCollection, int startIndex, int stride){
         this.employeeCollection = employeeCollection;
         this.startIndex = startIndex;
         this.stride = stride;
-        this.insertionCount = 0;
+        this.rowsAffected = 0;
     }
     @Override
     public void run() {
         insertByStride();
+    }
+
+    public int getRowsAffected() {
+        return rowsAffected;
     }
 
     public void insertByStride(){
@@ -43,11 +47,10 @@ public class EmployeeDataInsertThread implements Runnable {
                 preparedStatement.setString(8, ""+employee.dateOfBirth);
                 preparedStatement.setString(9, ""+employee.dateOfJoining);
                 preparedStatement.setString(10, ""+employee.salary);
-                preparedStatement.executeUpdate();
+                int rowsAffected = preparedStatement.executeUpdate();
                 currentIndex += this.stride;
-                insertionCount++;
+                this.rowsAffected += rowsAffected;
             }
-
             preparedStatement.close();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
