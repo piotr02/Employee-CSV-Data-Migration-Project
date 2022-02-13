@@ -48,6 +48,10 @@ public class CSVDriver {
 
         EmployeeDB employeeDb = new EmployeeDB();
 
+        System.out.println("");
+        System.out.println("============ WAIT ===============");
+        System.out.println("");
+
 
         //Populate with 1 thread
         EmployeeDB.createDatabase();
@@ -95,6 +99,18 @@ public class CSVDriver {
         endTime = currentTimeMillis();
         System.out.println("With 20 theads it took: " + (endTime - startTime) + " milliseconds to write employees");
 
+        EmployeeDB.createDatabase();
+        startTime = currentTimeMillis();
+        EmployeeDB.insertEmployeesStream(employeeRecords);
+        endTime = currentTimeMillis();
+        System.out.println("With stream it took: " + (endTime - startTime) + " milliseconds to write employees");
+
+        EmployeeDB.createDatabase();
+        startTime = currentTimeMillis();
+        EmployeeDB.insertEmployeesStreamParallel(employeeRecords);
+        endTime = currentTimeMillis();
+        System.out.println("With parallel stream it took: " + (endTime - startTime) + " milliseconds to write employees");
+
 
 
 
@@ -106,12 +122,14 @@ public class CSVDriver {
 
         //EmployeeDB.selectEmployee(111800);
         //EmployeeDB.selectAllRecords();
+
         int cleanCount = counter.countClean(dataValidator.getCleanedData());
         int uniqueCleanCount = counter.countUniqueClean(dataValidator.getUniqueCleanRecords());
         int missingCount = counter.countMissingValuesRecords(dataValidator.getMissingValuesData());
         int duplicatedCount = counter.countDuplicated(dataValidator.getRecordsWithDuplicatedId());
         int incorrectCount = counter.countIncorrectValuesRecords(dataValidator.getRecordsWithIncorrectFields());
         view.printResult(cleanCount, uniqueCleanCount, missingCount, duplicatedCount, incorrectCount);
+
     }
 
 
