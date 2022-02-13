@@ -12,7 +12,7 @@ public class CSVThreadFactory {
      */
     public void createThreads(int numberOfThreads, ArrayList<Employee> employeeList){
         for(int i = 0; i < numberOfThreads; i++){
-            this.threadList.add(new CSVThread("thread " + i, employeeList));
+            this.threadList.add(new CSVThread("thread " + (i+1), employeeList));
         }
     }
 
@@ -53,7 +53,7 @@ public class CSVThreadFactory {
         ArrayList<Employee> employeeRecords = new RecordsToEmployee(sqlReadyRecords).getEmployeeArrayListFunctional();
 
         EmployeeDB.createDatabase();
-        threadFactory.createThreads(1, employeeRecords);
+        threadFactory.createThreads(2, employeeRecords);
         double start = System.currentTimeMillis();
         threadFactory.run();
         double end = System.currentTimeMillis();
