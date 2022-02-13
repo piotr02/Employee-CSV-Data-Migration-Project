@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class CSVReader implements CSVTool{
+public class CSVReader implements CSVTool {
 
 
     public CSVReader() {

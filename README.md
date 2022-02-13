@@ -5,11 +5,21 @@
 -[Technologies](#References)
 
 ### Discription
-* Phase 1 : We Created Employee-CSV-Data-Migration-Project and write code to read data from an Employee CSV file.Corrupt or duplicated data and records with missing fields,                  added to a separate collection for analysis i.e TestCorruptedData.csv,TestDuplicatedData.csv files and TestMissingValuesData.csv file and testes the files with the
-             help JUnit.
+* Phase 1 : We Created Employee-CSV-Data-Migration-Project and write code to read data from an Employee CSV file.Corrupt or duplicated data and records with missing fields,              added to a separate collection for analysis i.e TestCorruptedData.csv,TestDuplicatedData.csv files and TestMissingValuesData.csv file and testes the files with the            help JUnit.
+* Duplicate Data
+             ![DuplicateData](DuplicateData.png)
+ * Missing Values
+              ![MissingValues](MissingValues.png)
+ * CorruptData
+               ![CorruptData](CorruptData.png)
+ * Duplicate Data
+                ![UniqueData](DuplicateData.png)
+             
 * Phase 2 : Used MySQL Database and create a connection and transefering dates from JAVA to SQL. 
 * Create database  from JAVA to Mysql
 ![Main Method](CreateDatabase.png)
+* Create Database
+              ![Create Database](CreateDatabase.
 * Phase 3 : Implementing multiple threads to write the data and comparing the execution time. 
 * Create Database From Java To SQL
  ![Create Database](CreateDatabase.png)

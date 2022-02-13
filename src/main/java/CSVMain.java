@@ -11,10 +11,10 @@ public class CSVMain {
         boolean isRunning = true;
 
 
-        while (isRunning == true) {
+        while (isRunning) {
 
             System.out.println("=== ======================================================= ===");
-            System.out.println("=== Available Commands: 'read', 'validate' ================ ===");
+            System.out.println("=== Available Commands: 'read', 'validate', 'write' ======= ===");
             System.out.println("=== ======================================================= ===");
 
             CSVView view = new CSVView();
@@ -30,8 +30,9 @@ public class CSVMain {
 
             if(selectContinue.equals("no") || selectContinue.equals("n")){
                 isRunning = false;
-            } else { isRunning = true; }
+            }
         }
+
 
     }
 

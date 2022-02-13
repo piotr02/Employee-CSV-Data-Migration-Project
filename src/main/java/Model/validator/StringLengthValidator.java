@@ -9,6 +9,6 @@ public class StringLengthValidator implements DataValidator{
     @Override
     public boolean validate(String str) {
         if (str == null) return false;
-        return str.length() < maxLength;
+        return str.length() <= maxLength;
     }
 }
