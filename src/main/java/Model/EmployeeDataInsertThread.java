@@ -33,6 +33,7 @@ public class EmployeeDataInsertThread implements Runnable {
         PreparedStatement preparedStatement = null;
         try {
             Connection connection = ConnectionFactory.getConnection();
+            connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement("INSERT INTO Employee (Emp_ID, Name_Prefix, First_Name, Middle_Initial, Last_Name, Gender, Email, Date_Of_Birth, Date_Of_Joining, Salary) VALUES (?,?,?,?,?,?,?,?,?,?)");
             while (currentIndex < employeeCollection.size()){
                 Employee employee = this.employeeCollection.get(currentIndex);
@@ -49,6 +50,7 @@ public class EmployeeDataInsertThread implements Runnable {
                 preparedStatement.executeUpdate();
                 currentIndex += this.stride;
             }
+            connection.commit();
             preparedStatement.close();
         } catch (SQLException | IOException e) {
             e.printStackTrace();

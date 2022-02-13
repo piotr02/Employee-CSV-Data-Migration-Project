@@ -22,7 +22,7 @@ public class CSVDriver {
         System.out.println("");
 
 
-        String[][] csvData = CSVReader.readCsvFile("EmployeeRecords.csv");
+        String[][] csvData = CSVReader.readCsvFile("EmployeeRecordsLarge.csv");
 
         System.out.println("");
         System.out.println("============ Seperate Corrupt ===============");
@@ -51,14 +51,14 @@ public class CSVDriver {
         //Populate with 1 thread
         EmployeeDB.createDatabase();
         long startTime = nanoTime();
-        EmployeeDB.insertEmployeesThreaded(employeeRecords, 1);
+        EmployeeDB.insertEmployeesThreaded(employeeRecords, 12);
         long endTime = nanoTime();
         System.out.println("With 1 theads it took: " + (endTime - startTime)  + "ns to write employees");
 
         //Populate with 8 threads
         EmployeeDB.createDatabase();
         startTime = nanoTime();
-        EmployeeDB.insertEmployeesThreaded(employeeRecords, 4);
+        EmployeeDB.insertEmployeesThreaded(employeeRecords, 8);
         endTime = nanoTime();
         System.out.println("With 8 theads it took: " + (endTime - startTime) + "ns to write employees");
 
