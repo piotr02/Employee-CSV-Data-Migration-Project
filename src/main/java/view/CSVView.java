@@ -1,5 +1,7 @@
 package view;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -57,61 +59,80 @@ public class CSVView {
         }
     }
 
-    // Prints valid records
-    public void printValid(ArrayList<String[]> validData){
-        System.out.println("Valid records from the file: ");
-        for(String[] validRecord: validData){
-            System.out.println(Arrays.deepToString(validRecord));
+    // Prints clean records
+    public void printCleanedData(ArrayList<String[]> cleanedData){
+        System.out.println("Cleaned records from the file: ");
+        for(String[] cleaned: cleanedData){
+            System.out.println(Arrays.deepToString(cleaned));
         }
     }
 
-    // Prints corrupted records
-    public void printCorrupted(ArrayList<String[]> corruptedData){
-        System.out.println("Corrupted records from the file: ");
-        for(String[] corruptedRecord: corruptedData){
-            System.out.println(Arrays.deepToString(corruptedRecord));
+    // Prints unique cleaned records
+    public void printUniqueCleanedData(ArrayList<String[]> uniqueCleanedData){
+        System.out.println("Unique cleaned records from the file: ");
+        for(String[] uniqueCleaned: uniqueCleanedData){
+            System.out.println(Arrays.deepToString(uniqueCleaned));
         }
     }
 
-    // Returns the number of unique records in the file
-    public String getUnique(int unique){
-        return "Number of unique records in the file: " + unique;
+    // Prints records with missing fields
+    public void printRecordsWithMissingFields(ArrayList<String[]> recordsWithMissingFields){
+        System.out.println("Records with missing fields from the file: ");
+        for(String[] record: recordsWithMissingFields){
+            System.out.println(Arrays.deepToString(record));
+        }
     }
 
-    // Returns the number of valid records in the file
-    public String getValid(int valid){
-        return "Number of valid records in the file: " + valid;
+    // Prints records with incorrect fields
+    public void printRecordsWithIncorrectFields(ArrayList<String[]> recordsWithIncorrectFields){
+        System.out.println("Records with missing fields from the file: ");
+        for(String[] record: recordsWithIncorrectFields){
+            System.out.println(Arrays.deepToString(record));
+        }
     }
 
-    // Returns the number of corrupted records in the file
-    public String getCorrupted(int corrupted){
-        return "Number of corrupted records in the file: " + corrupted;
+    // Prints duplicated records
+    public void printDuplicatedRecords(ArrayList<String[]> duplicatedRecords){
+        System.out.println("Records with missing fields from the file: ");
+        for(String[] record: duplicatedRecords){
+            System.out.println(Arrays.deepToString(record));
+        }
     }
 
-    // Returns the number of duplicate records in the file
-    public String getDuplicates(int duplicates){
-        return "Number of duplicate records in the file: " + duplicates;
+    // Prints the number of cleaned records in the file
+    public void printCleanedDataRows(int cleanedRows){
+        System.out.println("=== Number of cleaned records in the file: " + cleanedRows);
     }
 
-    // Returns the number of missing fields in the file
-    public String getMissingFields(int missingFields){
-        return "Number of records with missing fields in the file: " + missingFields;
+    // Prints the number of unique cleaned records in the file
+    public void printUniqueCleanedRows(int uniqueCleanedRows){
+        System.out.println("=== Number of unique cleaned records in the file: " + uniqueCleanedRows);
+
+    }
+
+    // Prints the number of records with missing fields in the file
+    public void printRecordsWithMissingFieldsRows(int recordsWithMissingFieldsRows){
+        System.out.println("=== Number of records with missing fields in the file: " + recordsWithMissingFieldsRows);
+    }
+
+    // Prints the number of duplicate records in the file
+    public void printDuplicatesRows(int duplicatesRows){
+        System.out.println("=== Number of duplicate records in the file: " + duplicatesRows);
+    }
+
+    // Prints the number of records with incorrect fields in the file
+    public void printRecordsWithIncorrectFieldsRows(int recordsWithIncorrectFieldsRows){
+        System.out.println("=== Number of records with incorrect fields in the file: " + recordsWithIncorrectFieldsRows);
     }
 
     // Prints the results interface
-    public void printResult(int unique, int valid, int corrupted, int duplicates, int missingFields, String questionableRecords){
-        System.out.println("==================================================\n" +
-                "Employee CSV Data Migration Project\n" +
-                "==================================================\n +" +
-                getUnique(unique)+
-                "\n--------------------------------------------------\n"+
-                getValid(valid)+
-                "\n--------------------------------------------------\n"+
-                getCorrupted(corrupted)+
-                "\n--------------------------------------------------\n"+
-                getDuplicates(duplicates)+
-                "\n--------------------------------------------------\n"+
-                getMissingFields(missingFields)+
-                "\n--------------------------------------------------");
+    public void printResult(int cleaned, int uniqueCleaned, int missing, int duplicates, int incorrect){
+        System.out.println("=== ======================= RESULTS ======================= ===");
+        System.out.println();
+        printCleanedDataRows(cleaned);
+        printUniqueCleanedRows(uniqueCleaned);
+        printDuplicatesRows(duplicates);
+        printRecordsWithMissingFieldsRows(missing);
+        printRecordsWithIncorrectFieldsRows(incorrect);
     }
 }
