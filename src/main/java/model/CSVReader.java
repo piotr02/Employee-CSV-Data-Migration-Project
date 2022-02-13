@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class CSVReader {
+public class CSVReader implements CSVTool {
 
 
     public CSVReader() {
@@ -56,4 +56,9 @@ public class CSVReader {
         System.out.println("Reading done");
       return stringArray;
   }
+
+    @Override
+    public String validate() {
+        return null;
+    }
 }
