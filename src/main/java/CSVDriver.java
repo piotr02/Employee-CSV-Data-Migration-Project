@@ -5,7 +5,7 @@ import view.CSVView;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static java.lang.System.nanoTime;
+import static java.lang.System.currentTimeMillis;
 
 public class CSVDriver {
 
@@ -50,17 +50,50 @@ public class CSVDriver {
 
         //Populate with 1 thread
         EmployeeDB.createDatabase();
-        long startTime = nanoTime();
+        long startTime = currentTimeMillis();
+        EmployeeDB.insertEmployeesThreaded(employeeRecords, 1);
+        long endTime = currentTimeMillis();
+        System.out.println("With 1 thread it took: " + (endTime - startTime)  + " milliseconds to write employees");
+
+
+        EmployeeDB.createDatabase();
+        startTime = currentTimeMillis();
+        EmployeeDB.insertEmployeesThreaded(employeeRecords, 4);
+        endTime = currentTimeMillis();
+        System.out.println("With 4 threads it took: " + (endTime - startTime)  + " milliseconds to write employees");
+
+
+        EmployeeDB.createDatabase();
+         startTime = currentTimeMillis();
+        EmployeeDB.insertEmployeesThreaded(employeeRecords, 8);
+         endTime = currentTimeMillis();
+        System.out.println("With 8 threads it took: " + (endTime - startTime)  + " milliseconds to write employees");
+
+        EmployeeDB.createDatabase();
+        startTime = currentTimeMillis();
+        EmployeeDB.insertEmployeesThreaded(employeeRecords, 10);
+        endTime = currentTimeMillis();
+        System.out.println("With 10 threads it took: " + (endTime - startTime)  + " milliseconds to write employees");
+
+        EmployeeDB.createDatabase();
+        startTime = currentTimeMillis();
         EmployeeDB.insertEmployeesThreaded(employeeRecords, 12);
-        long endTime = nanoTime();
-        System.out.println("With 1 theads it took: " + (endTime - startTime)  + "ns to write employees");
+        endTime = currentTimeMillis();
+        System.out.println("With 12 threads it took: " + (endTime - startTime)  + " milliseconds to write employees");
 
         //Populate with 8 threads
         EmployeeDB.createDatabase();
-        startTime = nanoTime();
-        EmployeeDB.insertEmployeesThreaded(employeeRecords, 8);
-        endTime = nanoTime();
-        System.out.println("With 8 theads it took: " + (endTime - startTime) + "ns to write employees");
+        startTime = currentTimeMillis();
+        EmployeeDB.insertEmployeesThreaded(employeeRecords, 16);
+        endTime = currentTimeMillis();
+        System.out.println("With 16 theads it took: " + (endTime - startTime) + " milliseconds to write employees");
+
+        EmployeeDB.createDatabase();
+        startTime = currentTimeMillis();
+        EmployeeDB.insertEmployeesThreaded(employeeRecords, 20);
+        endTime = currentTimeMillis();
+        System.out.println("With 20 theads it took: " + (endTime - startTime) + " milliseconds to write employees");
+
 
 
 
