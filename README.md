@@ -19,7 +19,11 @@
 * Create database  from JAVA to Mysql
 ![Main Method](CreateDatabase.png)
 * Create Database
-              ![Create Database](CreateDatabase.
+              ![Create Database](CreateDatabase.png)
+              
+* comparing the execution time 
+![Thread Execution Time](Threadexecution.png) 
+![Thread Execution Time](graph.png)
 * Phase 3 : Implementing multiple threads to write the data and comparing the execution time. 
 * Create Database From Java To SQL
  ![Create Database](CreateDatabase.png)
