@@ -98,11 +98,6 @@ public class CSVView {
         return "Number of records with missing fields in the file: " + missingFields;
     }
 
-    // Returns questionable records from the file
-    public String qetQuestionableRecords(String questionableRecords){
-        return "List of questionable records: " + questionableRecords;
-    }
-
     // Prints the results interface
     public void printResult(int unique, int valid, int corrupted, int duplicates, int missingFields, String questionableRecords){
         System.out.println("==================================================\n" +
