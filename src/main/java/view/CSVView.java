@@ -27,7 +27,7 @@ public class CSVView {
         String selectCSV = null;
 
         while (validEnum == false) {
-            System.out.println("Which feature would you like to use?");
+            System.out.println("=== Which feature would you like to use?");
             Scanner scanner = new Scanner(System.in);
             selectCSV = scanner.next().toLowerCase();
 
@@ -127,10 +127,6 @@ public class CSVView {
     public void printStart(){
         System.out.println("=== ======================================================= ===");
         System.out.println("===           EMPLOYEE CSV DATA MIGRATION PROJECT           ===");
-        System.out.println("=== ======================================================= ===");
-        System.out.println("");
-        System.out.println("=== ======================= READ CSV ====================== ===");
-        System.out.println("");
     }
 
     // Prints the results interface

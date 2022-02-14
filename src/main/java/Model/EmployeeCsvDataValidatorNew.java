@@ -2,46 +2,48 @@ package model;
 
 import model.validator.*;
 import view.CSVView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-
-
+import java.util.Scanner;
 
 public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implements CSVTool{
 
     public EmployeeCsvDataValidatorNew() {
-
-
-
-
-
     }
 
     @Override
     public String validate() {
         System.out.println();
-        System.out.println("========== Get File ==========");
+        System.out.println("=== ============== CHOOSE FILE TO VALIDATE ================ ===");
+        System.out.println("\n\t EmployeeRecordsLarge \n\t EmployeeRecords");
         System.out.println();
-        String filename = "EmployeeRecords.csv";
-        System.out.println(filename);
-        System.out.println();
-        System.out.println("=====   Validate CSV   ========");
-        System.out.println();
+
+        String csvFileName = null;
+
+        while (csvFileName == null) {
+            Scanner scanner = new Scanner(System.in);
+            String chosen = scanner.next();
+            switch (chosen.toLowerCase()) {
+                case "employeerecordslarge" -> csvFileName = "EmployeeRecordsLarge.csv";
+                case "employeerecords" -> csvFileName = "EmployeeRecords.csv";
+                default -> System.out.println("Invalid File Option");
+            }
+            System.out.println("=== Chosen file: " + csvFileName);
+        }
+
+        System.out.println("\n=== ================ VALIDATING CHOSEN CSV ================ ===");
+        System.out.println("\n=== Validating done\n");
 
         RecordCounter counter = new RecordCounter();
         CSVView view = new CSVView();
-        view.printStart();
         int cleanCount = counter.countClean(getCleanedData());
         int uniqueCleanCount = counter.countUniqueClean(getUniqueCleanRecords());
         int missingCount = counter.countMissingValuesRecords(getMissingValuesData());
         int duplicatedCount = counter.countDuplicated(getRecordsWithDuplicatedId());
         int incorrectCount = counter.countIncorrectValuesRecords(getRecordsWithIncorrectFields());
-        System.out.println(cleanCount + uniqueCleanCount + missingCount + duplicatedCount + incorrectCount);
         view.printResult(cleanCount, uniqueCleanCount, missingCount, duplicatedCount, incorrectCount);
-        String viewString = view.toString();
-        return viewString;
+        return "";
     }
 
     public enum Field{
@@ -65,6 +67,7 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
             return index;
         }
     }
+
     private ArrayList<String[]> cleanedData;
 
     private ArrayList<String[]> uniqueCleanRecords;
@@ -72,7 +75,6 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
     private ArrayList<String[]> recordsWithDuplicatedId;
     private ArrayList<String[]> recordsWithIncorrectFields;
     private String[][] data;
-
 
     public EmployeeCsvDataValidatorNew(String[][] data){
         this.data = Arrays.copyOfRange(data, 1, data.length);
@@ -96,8 +98,6 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
             }
         });
     }
-
-
 
     public void catagorise(){
         HashSet<String> existingIds = new HashSet<>();
@@ -130,10 +130,6 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
         }
     }
 
-    //Emp ID,Name Prefix,First Name,Middle Initial,Last Name,Gender,E Mail,Date of Birth,Date of Joining,Salary
-
-
-
     public boolean isRecordContainingIncorrectFields(String[] record) {
         if(record == null) return true;
         String id = record[Field.Id.index];
@@ -150,7 +146,6 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
         String[] recordString = {id, prefix, firstName, middleInitial, lastName, gender,
         email, dateOfBirth, dateOfJoining, salary};
 
-
         boolean isValid = new IntegerValidator().validate(id);
         isValid &= new StringLengthValidator(10).validate(prefix);
         isValid &= new StringEndsWithValidator(".").validate(prefix);
@@ -165,7 +160,6 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
         isValid &= new IntegerValidator().validate(salary);
         return !isValid;
     }
-
 
     private boolean isFieldsMissing(String[] row){
         if (row == null) return true;
@@ -206,44 +200,4 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
     public ArrayList<String[]> getUniqueCleanRecords() {
         return uniqueCleanRecords;
     }
-
-
-
-/*
-    //Setters not allowed
-    public void setUniqueAndDuplicate(){
-        this.uniqueData = new ArrayList<>();
-        this.duplicatedData = new ArrayList<>();
-        String[][] data = this.getData();
-        this.duplicatedData.add(data[0]);
-        HashSet<String> uniqueData = new HashSet<>();
-        for (String[] row : data) {
-            if (uniqueData.contains(row[0])) {
-                this.duplicatedData.add(row);
-            } else {
-                this.uniqueData.add(row);
-                uniqueData.add(row[0]);
-            }
-        }
-    }
-
-
-    //Setters not allowed
-    public void setMissingValuesData(){
-        this.missingValuesData = new ArrayList<>();
-        String[][] data = this.getData();
-        this.missingValuesData.add(data[0]);
-        for (String[] row : data) {
-            if (row.length != 10) {
-                this.missingValuesData.add(row);
-            } else {
-                for (String s : row) {
-                    if (Objects.equals(s, "")) {
-                        this.missingValuesData.add(row);
-                    }
-                }
-            }
-        }
-    }
-*/
 }
