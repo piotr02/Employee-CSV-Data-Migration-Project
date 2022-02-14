@@ -1,7 +1,7 @@
 # Employee CSV Date Migration Project
 ### Table Of Contents
 -[Discription](#description)
--[How-to-use](#How-to-use)
+-[How-to-use](#Project Tour)
 -[Technologies](#References)
 
 ### Discription
