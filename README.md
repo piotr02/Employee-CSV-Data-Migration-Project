@@ -8,7 +8,7 @@
 ### Table Of Contents
 
 -[Discription](#description)
--[How-to-use](#Project Tour)
+-[Project Tour](#Project Tour)
 -[Technologies](#References)
 
 
