@@ -1,7 +1,5 @@
 package model.validator;
 
-import javax.xml.validation.Validator;
-
 public class GenderValidator implements DataValidator {
 
     @Override
