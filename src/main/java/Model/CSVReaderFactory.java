@@ -1,6 +1,6 @@
 package model;
 
-public class ReaderFactory extends CSVToolFactory {
+public class CSVReaderFactory extends CSVToolFactory {
 
     @Override
     public CSVTool getInstance() {
