@@ -5,6 +5,7 @@
 To read data from a CSV file (provided), parse it, populate objects and add to a collection.
 To efficiently write the data from the objects to a relational database using JDBC.
 To demonstrate good programming practices in OOP, SOLID, design patterns, testing, logging, etc.
+
 ##Phase 1 – Initial Reading and Cleaning
 
 Create a new project and write code to read data from an Employee CSV file.
@@ -18,6 +19,7 @@ Consider preparing your tests beforehand, in line with a TDD approach.
 Since the overall purpose of the project is data migration, we want to make sure that only clean data is transferred.
 Consider your code structure, since later in the project we will be increasing the size of the data and looking at the efficiency of the code.
 The choice of collection will be important as there is some duplication of the employee records.
+
 ##Phase 2 – Persist to Database
 
 Write the SQL statements to create a table and to persist data to that table. If the table exists, it will need to be dropped first.
