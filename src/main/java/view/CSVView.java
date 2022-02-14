@@ -125,6 +125,16 @@ public class CSVView {
         System.out.println("=== Number of records with incorrect fields in the file: " + recordsWithIncorrectFieldsRows);
     }
 
+    // prints start interface
+    public void printStart(){
+        System.out.println("=== ======================================================= ===");
+        System.out.println("===           EMPLOYEE CSV DATA MIGRATION PROJECT           ===");
+        System.out.println("=== ======================================================= ===");
+        System.out.println("");
+        System.out.println("=== ======================= READ CSV ====================== ===");
+        System.out.println("");
+    }
+
     // Prints the results interface
     public void printResult(int cleaned, int uniqueCleaned, int missing, int duplicates, int incorrect){
         System.out.println("=== ======================= RESULTS ======================= ===");

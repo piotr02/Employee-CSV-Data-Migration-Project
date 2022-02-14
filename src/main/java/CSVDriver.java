@@ -17,6 +17,7 @@ public class CSVDriver {
 
 
 
+
         System.out.println("");
         System.out.println("============= Choose EmployeeFile To Add To Database ======================");
         System.out.println("\n\t employeeCsvLarge \n\t employeeCsv");
@@ -62,53 +63,19 @@ public class CSVDriver {
                     "thread <int:threadCount>");
             Scanner scanner = new Scanner(System.in);
             String command = scanner.nextLine().toLowerCase();
-            System.out.println("============ WAIT: Employees into database ===============");
+            System.out.println("============ WAIT: Inserting Employees into database ===============");
 
             if(command.equals("threadspeedtest")) {
-                EmployeeDB.createDatabase();
-                startTime = currentTimeMillis();
-                EmployeeDB.insertEmployeesThreaded(employeeRecords, 1);
-                endTime = currentTimeMillis();
-                System.out.println("With 1 thread it took: " + (endTime - startTime) + " milliseconds to write employees");
 
+                int[] threadCounts = {1, 4, 8, 10, 12, 16, 20};
+                for (int count: threadCounts) {
+                    EmployeeDB.createDatabase();
+                    startTime = currentTimeMillis();
+                    EmployeeDB.insertEmployeesThreaded(employeeRecords, count);
+                    endTime = currentTimeMillis();
+                    System.out.println("=== With "+ count + " thread it took: " + (endTime - startTime) + " milliseconds to write employees");
 
-                EmployeeDB.createDatabase();
-                startTime = currentTimeMillis();
-                EmployeeDB.insertEmployeesThreaded(employeeRecords, 4);
-                endTime = currentTimeMillis();
-                System.out.println("With 4 threads it took: " + (endTime - startTime) + " milliseconds to write employees");
-
-
-                EmployeeDB.createDatabase();
-                startTime = currentTimeMillis();
-                EmployeeDB.insertEmployeesThreaded(employeeRecords, 8);
-                endTime = currentTimeMillis();
-                System.out.println("With 8 threads it took: " + (endTime - startTime) + " milliseconds to write employees");
-
-                EmployeeDB.createDatabase();
-                startTime = currentTimeMillis();
-                EmployeeDB.insertEmployeesThreaded(employeeRecords, 10);
-                endTime = currentTimeMillis();
-                System.out.println("With 10 threads it took: " + (endTime - startTime) + " milliseconds to write employees");
-
-                EmployeeDB.createDatabase();
-                startTime = currentTimeMillis();
-                EmployeeDB.insertEmployeesThreaded(employeeRecords, 12);
-                endTime = currentTimeMillis();
-                System.out.println("With 12 threads it took: " + (endTime - startTime) + " milliseconds to write employees");
-
-                //Populate with 8 threads
-                EmployeeDB.createDatabase();
-                startTime = currentTimeMillis();
-                EmployeeDB.insertEmployeesThreaded(employeeRecords, 16);
-                endTime = currentTimeMillis();
-                System.out.println("With 16 theads it took: " + (endTime - startTime) + " milliseconds to write employees");
-
-                EmployeeDB.createDatabase();
-                startTime = currentTimeMillis();
-                EmployeeDB.insertEmployeesThreaded(employeeRecords, 20);
-                endTime = currentTimeMillis();
-                System.out.println("With 20 theads it took: " + (endTime - startTime) + " milliseconds to write employees");
+                }
 
                 System.out.println("");
                 System.out.println("============ WAIT ===============");
@@ -128,21 +95,21 @@ public class CSVDriver {
                 startTime = currentTimeMillis();
                 EmployeeDB.insertEmployeesStreamParallel(employeeRecords);
                 endTime = currentTimeMillis();
-                System.out.println("With parallel stream it took: " + (endTime - startTime) + " milliseconds to write employees");
+                System.out.println("=== With parallel stream it took: " + (endTime - startTime) + " milliseconds to write employees");
                 addedToDatabase = true;
             }else if(command.equals("stream")) {
                 EmployeeDB.createDatabase();
                 startTime = currentTimeMillis();
                 EmployeeDB.insertEmployeesStream(employeeRecords);
                 endTime = currentTimeMillis();
-                System.out.println("With stream it took: " + (endTime - startTime) + " milliseconds to write employees");
+                System.out.println("=== With stream it took: " + (endTime - startTime) + " milliseconds to write employees");
                 addedToDatabase = true;
             }else if(command.equals("parallelstream")){
                 EmployeeDB.createDatabase();
                 startTime = currentTimeMillis();
                 EmployeeDB.insertEmployeesStreamParallel(employeeRecords);
                 endTime = currentTimeMillis();
-                System.out.println("With parallel stream it took: " + (endTime - startTime) + " milliseconds to write employees");
+                System.out.println("=== With parallel stream it took: " + (endTime - startTime) + " milliseconds to write employees");
                 addedToDatabase = true;
             }else {
                 String[] threadCommand = command.split(" ");
@@ -152,7 +119,7 @@ public class CSVDriver {
                     startTime = currentTimeMillis();
                     EmployeeDB.insertEmployeesThreaded(employeeRecords, threadCount);
                     endTime = currentTimeMillis();
-                    System.out.println("With "+ threadCount +" theads it took: " + (endTime - startTime) + " milliseconds to write employees");
+                    System.out.println("=== With "+ threadCount +" threads it took: " + (endTime - startTime) + " milliseconds to write employees");
                     addedToDatabase = true;
                 }
             }
@@ -163,14 +130,11 @@ public class CSVDriver {
 
 
 
+
         CSVView view = new CSVView();
+        view.printStart();
+
         RecordCounter counter = new RecordCounter();
-
-
-        //System.out.println(view.getValid(counter.countClean(dataValidator.getUniqueCleanRecords())));
-
-        //EmployeeDB.selectEmployee(111800);
-        //EmployeeDB.selectAllRecords();
 
         int cleanCount = counter.countClean(dataValidator.getCleanedData());
         int uniqueCleanCount = counter.countUniqueClean(dataValidator.getUniqueCleanRecords());
