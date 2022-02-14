@@ -47,8 +47,8 @@ public class CSVWriter implements CSVTool{
         while (!addedToDatabase) {
             long startTime;
             long endTime;
-            //Populate with 1 thread
-            System.out.println("\nChoose how to insert data into database \n" +
+
+            System.out.println("\n=== ======= CHOOSE HOW TO INSERT DATA INTO DATABASE ======= ===\n" +
                     "\tthreadSpeedTest\n" +
                     "\tstream\n" +
                     "\tparallelStream\n" +
@@ -56,10 +56,10 @@ public class CSVWriter implements CSVTool{
             Scanner scanner = new Scanner(System.in);
             String command = scanner.nextLine().toLowerCase();
 
-            System.out.println("=== ======= WAIT: INSERTING EMPLOYEES INTO DATABASE ======= ===");
+            System.out.println("=== ========== INSERTING EMPLOYEES INTO DATABASE ========== ===");
 
             if(command.equals("threadspeedtest")) {
-
+                System.out.println("=== ============= WAIT: INSERTING WITH THREADS ============ ===");
                 int[] threadCounts = {1, 4, 8, 10, 12, 16, 20};
                 for (int count: threadCounts) {
                     EmployeeDB.createDatabase();
@@ -71,7 +71,7 @@ public class CSVWriter implements CSVTool{
                 }
 
                 System.out.println("");
-                System.out.println("=== ======================== WAIT ========================= ===");
+                System.out.println("=== ============= WAIT: INSERTING WITH STREAM ============= ===");
                 System.out.println("");
 
                 EmployeeDB.createDatabase();
@@ -81,7 +81,7 @@ public class CSVWriter implements CSVTool{
                 System.out.println("=== With stream it took: " + (endTime - startTime) + " milliseconds to write employees");
 
                 System.out.println("");
-                System.out.println("=== ======================== WAIT ========================= ===");
+                System.out.println("=== ========= WAIT: INSERTING WITH PARALLEL STREAM ======== ===");
                 System.out.println("");
 
                 EmployeeDB.createDatabase();
@@ -95,14 +95,14 @@ public class CSVWriter implements CSVTool{
                 startTime = currentTimeMillis();
                 EmployeeDB.insertEmployeesStream(employeeRecords);
                 endTime = currentTimeMillis();
-                System.out.println("=== With stream it took: " + (endTime - startTime) + " milliseconds to write employees");
+                System.out.println("\n=== With stream it took: " + (endTime - startTime) + " milliseconds to write employees");
                 addedToDatabase = true;
             }else if(command.equals("parallelstream")){
                 EmployeeDB.createDatabase();
                 startTime = currentTimeMillis();
                 EmployeeDB.insertEmployeesStreamParallel(employeeRecords);
                 endTime = currentTimeMillis();
-                System.out.println("=== With parallel stream it took: " + (endTime - startTime) + " milliseconds to write employees");
+                System.out.println("\n=== With parallel stream it took: " + (endTime - startTime) + " milliseconds to write employees");
                 addedToDatabase = true;
             }else {
                 String[] threadCommand = command.split(" ");
@@ -112,7 +112,7 @@ public class CSVWriter implements CSVTool{
                     startTime = currentTimeMillis();
                     EmployeeDB.insertEmployeesThreaded(employeeRecords, threadCount);
                     endTime = currentTimeMillis();
-                    System.out.println("=== With "+ threadCount +" threads it took: " + (endTime - startTime) + " milliseconds to write employees");
+                    System.out.println("\n=== With "+ threadCount +" threads it took: " + (endTime - startTime) + " milliseconds to write employees");
                     addedToDatabase = true;
                 }
             }
@@ -120,6 +120,29 @@ public class CSVWriter implements CSVTool{
                 System.out.println("Invalid Input");
             }
         }
+
+        boolean shouldContinue = false;
+        do {
+            System.out.println("\n===   CHOOSE AN OPTION TO DISPLAY AN EMPLOYEE OR CONTINUE   ===\n" +
+                    "\tall\n" +
+                    "\tselect <int:employeeId>\n" +
+                    "\tcontinue");
+
+            Scanner scanner = new Scanner(System.in);
+            String command = scanner.nextLine().toLowerCase();
+            if(command.trim().equals("all")){
+                EmployeeDB.selectAllRecords();
+            }else if(command.trim().equals("continue")){
+                shouldContinue = true;
+            }else{
+                String[] commandStrings = command.split(" ");
+                String action = commandStrings[0].trim();
+                String param = commandStrings[1].trim();
+                if(action.equals("select")){
+                    EmployeeDB.selectEmployee(Integer.parseInt(param));
+                }
+            }
+        }while (!shouldContinue);
     }
 
     @Override

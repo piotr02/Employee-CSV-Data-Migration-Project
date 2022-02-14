@@ -27,7 +27,7 @@ public class CSVView {
         String selectCSV = null;
 
         while (validEnum == false) {
-            System.out.println("=== Which feature would you like to use?");
+            System.out.println("=== ========= WHICH FEATURE WOULD YOU LIKE TO USE? ======== ===");
             Scanner scanner = new Scanner(System.in);
             selectCSV = scanner.next().toLowerCase();
 
