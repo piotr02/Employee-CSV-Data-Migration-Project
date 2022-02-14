@@ -1,13 +1,6 @@
 package model;
 
-import model.ConnectionFactory;
-
-import java.io.IOException;
-import java.sql.*;
-
 public class Employee {
-
-
     public int employer_ID;
     public String prefix;
     public String firstName;
@@ -18,10 +11,6 @@ public class Employee {
     public char gender;
     public java.sql.Date dateOfJoining;
     public int salary;
-
-
-
-
 
     @Override
     public String toString() {
@@ -37,9 +26,6 @@ public class Employee {
                 ", dateOfJoining=" + dateOfJoining +
                 ", salary=" + salary +
                 '}';
-
     }
-
-
-    }
+}
 

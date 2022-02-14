@@ -23,16 +23,6 @@ public class EmployeeCsvDataValidatorNewTest {
     }
 
     @Test
-    @DisplayName("Given A CSV file where ther are 11 records and 10 records have 1 invalid field, expect the employee validator" +
-            "to return 1 for valid field and return 10 invalid field")
-    void testIncorrectRecords(){
-
-
-
-
-    }
-
-    @Test
     @DisplayName("Given a CSV file where there are 8 values and there are two duplicated for employeeId, expect the employee" +
             "validator to return 2 duplicate rows and 6 correct rows, 0 rows with incorrect fielsd and 0 rows with missing fields")
     void testForDuplicateRecords(){

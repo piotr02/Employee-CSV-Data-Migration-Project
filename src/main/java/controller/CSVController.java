@@ -1,12 +1,8 @@
 package controller;
 
-import model.CSVTool;
-import model.CSVToolFactory;
-import model.DataValidatorFactory;
-import model.ReaderFactory;
+import model.*;
 
 public class CSVController {
-
 
     public String initiateCSV(String desired) {
         CSVTool c = getTool(desired);
@@ -15,27 +11,21 @@ public class CSVController {
 
     public CSVTool getTool(String toolType){
 
-
         CSVToolFactory tf = switch (toolType.toLowerCase()){
 
             case "read" ->
-                    new ReaderFactory();
+                    new CSVReaderFactory();
 
             case "validate" ->
                     new DataValidatorFactory();
 
+            case "write" ->
+                    new CSVWriterFactory();
 
             default ->  { System.out.println("Unsupported request method: " + toolType.toLowerCase());
                 // yield instead of return
                 yield null;}
         };
-
         return tf.getInstance();
-
-
     }
-
-
-
-
 }
