@@ -1,15 +1,11 @@
-
 import model.*;
 import view.CSVView;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static java.lang.System.console;
 import static java.lang.System.currentTimeMillis;
 
 public class CSVDriver {
-
 
     public static void main(String[] args) {
         CSVView view = new CSVView();
