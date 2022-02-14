@@ -39,7 +39,7 @@ public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implement
         CSVView view = new CSVView();
         int cleanCount = counter.countClean(getCleanedData());
         int uniqueCleanCount = counter.countUniqueClean(getUniqueCleanRecords());
-        int missingCount = counter.countMissingValuesRecords(getMissingValuesData());
+        int missingCount = counter.countMissingValuesRecords(getRecordsWithMissingFields());
         int duplicatedCount = counter.countDuplicated(getRecordsWithDuplicatedId());
         int incorrectCount = counter.countIncorrectValuesRecords(getRecordsWithIncorrectFields());
         view.printResult(cleanCount, uniqueCleanCount, missingCount, duplicatedCount, incorrectCount);
