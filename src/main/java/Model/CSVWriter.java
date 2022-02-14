@@ -123,7 +123,7 @@ public class CSVWriter implements CSVTool{
 
         boolean shouldContinue = false;
         do {
-            System.out.println("\n===  CHOOSE AN OPTION TO DISPLAY AN EMPLOYEE OR CONTINUE  ===\n" +
+            System.out.println("\n===   CHOOSE AN OPTION TO DISPLAY AN EMPLOYEE OR CONTINUE   ===\n" +
                     "\tall\n" +
                     "\tselect <int:employeeId>\n" +
                     "\tcontinue");
