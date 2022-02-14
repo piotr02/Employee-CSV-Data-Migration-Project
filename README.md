@@ -100,19 +100,27 @@ each method.
 In order to read data, type 'read'. Then type the name
 of the file you wish to read. The program will display
 all records within that file.
+
   ![Reading](reading.jpg)
+
 Each time after finishing an operation, the program
 allows to enter another method. Type 'yes' to choose
 another method or 'no' to quit.
+
   ![AnotherMethod](anotherMethod.jpg)
+
 To validate a file, type 'validate'. Then, type the name
 of the desired file. The program will validate the chosen
 file and display the results.
+
   ![Validating](validating.jpg)
+
 To insert the records from a file to a database, type
 'write'. Then, type the name of the desired file.
 Follow the next steps.
+
   ![Writing](writing.jpg)
+
 After choosing the 'write' method and selecting a file,
 choose which method you want to insert the records
 into the database with. 
@@ -125,7 +133,9 @@ Type 'threadSpeedTest' to compare every method,
 
 or 'thread (desired number of threads)', e.g. 'thread 8'
 to use multithreading.
+
   ![Inserting](inserting.jpg)
+
 After writing to a database, you can choose to display
 all records, a single record, or to continue.
 
@@ -133,8 +143,11 @@ Type 'all' to display all records,
 
 'select (employee id)', e.g. 'select 111800'
 to display a single record.
+
   ![Selecting](selecting.jpg)
+
 Type 'continue' to return to the method selection.
+
   ![Continue](continue.jpg)
 
 
