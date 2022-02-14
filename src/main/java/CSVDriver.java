@@ -1,17 +1,13 @@
-
 import model.*;
 import view.CSVView;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
-import static java.lang.System.console;
 import static java.lang.System.currentTimeMillis;
 
 public class CSVDriver {
-
 
     public static void main(String[] args) {
 

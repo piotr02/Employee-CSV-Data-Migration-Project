@@ -1,41 +1,47 @@
 package model;
 
 import model.validator.*;
+import view.CSVView;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Objects;
 
 
 
 public class EmployeeCsvDataValidatorNew extends AbstractDataValidator implements CSVTool{
 
     public EmployeeCsvDataValidatorNew() {
-        System.out.println("Invalid constructor");
-        /*
+
+
+
+
+
+    }
+
+    @Override
+    public String validate() {
         System.out.println();
         System.out.println("========== Get File ==========");
         System.out.println();
         String filename = "EmployeeRecords.csv";
         System.out.println(filename);
         System.out.println();
-
         System.out.println("=====   Validate CSV   ========");
         System.out.println();
 
-
-
-        */
-
-    }
-
-    @Override
-    public String validate() {
-        return null;
+        RecordCounter counter = new RecordCounter();
+        CSVView view = new CSVView();
+        view.printStart();
+        int cleanCount = counter.countClean(getCleanedData());
+        int uniqueCleanCount = counter.countUniqueClean(getUniqueCleanRecords());
+        int missingCount = counter.countMissingValuesRecords(getMissingValuesData());
+        int duplicatedCount = counter.countDuplicated(getRecordsWithDuplicatedId());
+        int incorrectCount = counter.countIncorrectValuesRecords(getRecordsWithIncorrectFields());
+        System.out.println(cleanCount + uniqueCleanCount + missingCount + duplicatedCount + incorrectCount);
+        view.printResult(cleanCount, uniqueCleanCount, missingCount, duplicatedCount, incorrectCount);
+        String viewString = view.toString();
+        return viewString;
     }
 
     public enum Field{

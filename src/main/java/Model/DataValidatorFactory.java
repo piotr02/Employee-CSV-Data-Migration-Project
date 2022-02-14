@@ -7,8 +7,10 @@ public class DataValidatorFactory extends CSVToolFactory{
     public CSVTool getInstance() {
 
         System.out.println("Validating Employee Data");
-        return new EmployeeCsvDataValidatorNew();
+        String[][] csvData = CSVReader.readCsvFile("EmployeeRecords.csv");
 
+        EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew(csvData);
+        return dataValidator;
 
     }
 }
