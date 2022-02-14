@@ -9,8 +9,8 @@ public class CSVWriter implements CSVTool{
 
     public CSVWriter(){
         System.out.println("");
-        System.out.println("============= Choose EmployeeFile To Add To Database ======================");
-        System.out.println("\n\t employeeCsvLarge \n\t employeeCsv");
+        System.out.println("=== ======= CHOOSE EMPLOYEE FILE TO ADD TO DATABASE ======= ===");
+        System.out.println("\n\t EmployeeRecordsLarge \n\t EmployeeRecords");
 
         System.out.println("");
 
@@ -20,23 +20,27 @@ public class CSVWriter implements CSVTool{
             Scanner scanner = new Scanner(System.in);
             String chosen = scanner.next();
             switch (chosen.toLowerCase()) {
-                case "employeecsvlarge" -> csvFileName = "EmployeeRecordsLarge.csv";
-                case "employeecsv" -> csvFileName = "EmployeeRecords.csv";
+                case "employeerecordslarge" -> csvFileName = "EmployeeRecordsLarge.csv";
+                case "employeerecords" -> csvFileName = "EmployeeRecords.csv";
                 default -> System.out.println("Invalid File Option");
             }
-            System.out.println(csvFileName);
+            System.out.println("=== Chosen file: " + csvFileName);
 
         }
 
-        System.out.println("============= Reading Chosen CSV ======================");
+        System.out.println("\n=== ================= READING CHOSEN CSV ================== ===");
         String[][] csvData = CSVReader.readCsvFile("EmployeeRecords.csv");
-        System.out.println("============ Seperate Corrupt data ===============");
+        System.out.println("\n=== Reading Done");
+        System.out.println("\n=== =============== SEPARATING CORRUPT DATA =============== ===");
         EmployeeCsvDataValidatorNew dataValidator = new EmployeeCsvDataValidatorNew(csvData);
-        System.out.println("============ Getting The Valid Data ===============");
+        System.out.println("\n=== Separating corrupt data done");
+        System.out.println("\n=== ============ CONVERTING DATES TO SQL FORMAT =========== ===");
         ArrayList<String[]> sqlReadyRecords = new EmployeeDateConversion(dataValidator.getUniqueCleanRecords()).toSqlReadyRecords();
-        System.out.println("============ Convert Dates to SQL Format ===============");
-
+        System.out.println("\n=== Converting done");
+        System.out.println("\n=== ================= GETTING VALID DATA ================== ===");
         ArrayList<Employee> employeeRecords = new RecordsToEmployee(sqlReadyRecords).getEmployeeArrayListFunctional();
+        System.out.println("\n=== Getting valid data done");
+
         EmployeeDB employeeDb = new EmployeeDB();
 
         boolean addedToDatabase = false;
@@ -44,14 +48,15 @@ public class CSVWriter implements CSVTool{
             long startTime;
             long endTime;
             //Populate with 1 thread
-            System.out.println("Choose how to insert data into database \n" +
+            System.out.println("\nChoose how to insert data into database \n" +
                     "\tthreadSpeedTest\n" +
                     "\tstream\n" +
                     "\tparallelStream\n" +
-                    "thread <int:threadCount>");
+                    "\tthread <int:threadCount>");
             Scanner scanner = new Scanner(System.in);
             String command = scanner.nextLine().toLowerCase();
-            System.out.println("============ WAIT: Inserting Employees into database ===============");
+
+            System.out.println("=== ======= WAIT: INSERTING EMPLOYEES INTO DATABASE ======= ===");
 
             if(command.equals("threadspeedtest")) {
 
@@ -61,22 +66,22 @@ public class CSVWriter implements CSVTool{
                     startTime = currentTimeMillis();
                     EmployeeDB.insertEmployeesThreaded(employeeRecords, count);
                     endTime = currentTimeMillis();
-                    System.out.println("=== With "+ count + " thread it took: " + (endTime - startTime) + " milliseconds to write employees");
+                    System.out.println("\n=== With "+ count + " thread it took: " + (endTime - startTime) + " milliseconds to write employees");
 
                 }
 
                 System.out.println("");
-                System.out.println("============ WAIT ===============");
+                System.out.println("=== ======================== WAIT ========================= ===");
                 System.out.println("");
 
                 EmployeeDB.createDatabase();
                 startTime = currentTimeMillis();
                 EmployeeDB.insertEmployeesStream(employeeRecords);
                 endTime = currentTimeMillis();
-                System.out.println("With stream it took: " + (endTime - startTime) + " milliseconds to write employees");
+                System.out.println("=== With stream it took: " + (endTime - startTime) + " milliseconds to write employees");
 
                 System.out.println("");
-                System.out.println("============ WAIT ===============");
+                System.out.println("=== ======================== WAIT ========================= ===");
                 System.out.println("");
 
                 EmployeeDB.createDatabase();

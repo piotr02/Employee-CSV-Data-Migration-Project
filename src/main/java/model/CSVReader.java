@@ -1,43 +1,45 @@
 package model;
 
+import view.CSVView;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class CSVReader implements CSVTool {
 
-
     public CSVReader() {
+        System.out.println("");
+        System.out.println("=== ========= CHOOSE EMPLOYEE FILE TO ADD TO READ ========= ===");
+        System.out.println("\n\t EmployeeRecordsLarge \n\t EmployeeRecords");
 
-        System.out.println();
-        System.out.println("========== Get File ==========");
-        System.out.println();
-        String filename = "EmployeeRecords.csv";
-        System.out.println(filename);
-        System.out.println();
+        System.out.println("");
 
-        System.out.println("========   Read CSV   ========");
-        System.out.println();
+        String csvFileName = null;
 
+        while (csvFileName == null) {
+            Scanner scanner = new Scanner(System.in);
+            String chosen = scanner.next();
+            switch (chosen.toLowerCase()) {
+                case "employeerecordslarge" -> csvFileName = "EmployeeRecordsLarge.csv";
+                case "employeerecords" -> csvFileName = "EmployeeRecords.csv";
+                default -> System.out.println("Invalid File Option");
+            }
+            System.out.println("=== Chosen file: " + csvFileName);
 
-        System.out.println(Arrays.deepToString(
-                readCsvFile("EmployeeRecords.csv")));
+        }
 
+        System.out.println("\n=== ================= READING CHOSEN CSV ================== ===");
+        String[][] csvData = CSVReader.readCsvFile("EmployeeRecords.csv");
+        System.out.println("\n=== Reading Done\n");
 
-        System.out.println();
-
-        System.out.println();
-        System.out.println("====================================");
-
+        CSVView view = new CSVView();
+        view.printRecords(csvData);
     }
 
-
-
     public static String[][] readCsvFile(String filename) {
-
-    String[][] stringArray  = new String[0][];
-      try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        String[][] stringArray  = new String[0][];
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
           StringBuilder sb = new StringBuilder();
           String line;
           while ((line = br.readLine()) != null){
@@ -49,16 +51,14 @@ public class CSVReader implements CSVTool {
           for(int i = 0; i < recordString.length; i++){
               stringArray[i] = recordString[i].split(",");
           }
-
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-        System.out.println("Reading done");
-      return stringArray;
-  }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stringArray;
+    }
 
     @Override
     public String validate() {
-        return null;
+        return "";
     }
 }
