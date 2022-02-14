@@ -101,6 +101,21 @@ Simply run this project using IntelliJ Community Edition. Make sure to install t
  ![Create Database](CreateDatabase.png)
 * Phase 4 : Modified code to make use of functional programming concepts – lambdas and streams.
 
+### JUnit Testing
+
+JUnit testing allows us to test the model methods of the project without having to participate in lengthy manual testing.
+
+Effecient use of JUnit Tests will allow us to maintain our program to ensure that it works without any error.
+
+We can find errors by asserting  results and comparing it to the actual result|
+![](Screenshot_1.png)
+
+Looking at our test coverage, the average % of code coverage is being dragged down by classes that are deprecated. The classes which see most use within the main methods of our project have exceedingly high coverage
+
+
+### Future Developments
+
+Outside of the time given for this project, we would like to implement a more user-friendly design. This shall allow users to select what outputs they desire such as the amount of corrupted data rather than getting all data.
 
 
 ## Technologies:
