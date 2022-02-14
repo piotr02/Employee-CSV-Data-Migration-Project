@@ -3,15 +3,6 @@
 #### Developed by Aiden Sykes, Antony Ademefun, Monali Dhamale and Piotr Sulek
 
 
-
-
-### Table Of Contents
-
--[Discription](#description)
--[Project Tour](#ProjectTour)
--[Technologies](#References)
-
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
