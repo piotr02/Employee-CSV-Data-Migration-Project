@@ -7,6 +7,11 @@
 
 ### Table Of Contents
 
+-[Discription](#description)
+-[How-to-use](#Project Tour)
+-[Technologies](#References)
+
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
